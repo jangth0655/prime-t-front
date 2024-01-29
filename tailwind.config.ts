@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        sm: "22.5rem",
+      },
       fontSize: {
         display: "3.5rem",
         h1: "2.5rem",
