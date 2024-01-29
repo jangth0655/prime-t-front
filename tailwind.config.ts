@@ -30,12 +30,12 @@ const config: Config = {
         label: "1rem",
         caption: "0.875rem",
       },
-      fontFamily: {
+      fontWeight: {
         black: "900",
         bold: "700",
         regular: "400",
       },
-      color: {
+      colors: {
         primary: {
           P500: "#000EAA",
           P400: "#1B35C7",
