@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={NotoSansKR.className}>
-        <main className="w-sm m-auto">
+        <main className="min-w-sm m-auto">
           <Navbar />
           {children}
         </main>
