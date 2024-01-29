@@ -3,7 +3,7 @@ import Process from "@/components/mainHome/Process";
 
 export default function HomePage() {
   return (
-    <section className="px-4 bg-slate-S900 border-2">
+    <section className="px-4 bg-slate-S900">
       <Intro />
       <Process />
     </section>
