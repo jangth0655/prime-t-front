@@ -4,7 +4,7 @@ import TemPortfolioImage from "../../../public/assets/mainHome-portfolio.png";
 export default function Portfolio() {
   return (
     <section className="pb-[5.5rem]">
-      <p className="text-h4 leading-h4 font-bold text-slate-S200 text-center mb-12">
+      <p className="text-h4 leading-h4 font-bold text-slate-S200 text-center mb-10">
         포트폴리오로 보유 자산을 <br />
         확인해보세요.
       </p>

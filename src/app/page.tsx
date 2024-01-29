@@ -1,3 +1,4 @@
+import FAQ from "@/components/mainHome/FAQ";
 import Intro from "@/components/mainHome/Intro";
 import Portfolio from "@/components/mainHome/Portfolio";
 import Process from "@/components/mainHome/Process";
@@ -8,6 +9,7 @@ export default function HomePage() {
       <Intro />
       <Process />
       <Portfolio />
+      <FAQ />
     </section>
   );
 }
