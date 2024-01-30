@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
 import HamburgerMenuIcon from "../icons/hamburgerMenuIcon.svg";
-import LogoWhiteIcon from "../icons/logoWhiteIcon.svg";
 import CloseIcon from "@/icons/CloseIcon";
+import LogoWhite from "@/icons/LogoWhite";
 
 const modalVariants: Variants = {
   initial: {
@@ -21,6 +22,7 @@ const modalVariants: Variants = {
 };
 
 export default function Navbar() {
+  const pathName = usePathname();
   const [isActive, setIsActive] = useState(false);
 
   const openNavModal = useCallback(() => {
@@ -32,11 +34,11 @@ export default function Navbar() {
     document.body.style.overflow = "auto";
   }, []);
 
-  return (
+  return pathName === "/" ? null : (
     <nav className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
       <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 z-40 border-b-[1px] border-b-slate-S600 ">
         <div>
-          <LogoWhiteIcon />
+          <LogoWhite />
         </div>
 
         <button type="button" className="pr-1" onClick={openNavModal}>
