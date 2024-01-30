@@ -69,7 +69,7 @@ export default function Navbar() {
                   key={item.key}
                   className="w-full p-4 border-b-[1px] border-b-slate-500"
                 >
-                  <Link href={item.urls}>
+                  <Link href={item.urls} onClick={closeNavModal}>
                     <p className="text-slate-S200 text-body leading-body font-regular">
                       {item.pageName}
                     </p>
