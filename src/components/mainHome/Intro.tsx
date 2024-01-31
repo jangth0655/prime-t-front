@@ -1,4 +1,6 @@
-import BorderButton from "../common/BorderButton";
+"use client";
+
+import Link from "next/link";
 import SolidButton from "../common/SolidButton";
 
 export default function Intro() {
@@ -10,9 +12,9 @@ export default function Intro() {
         <p>PRIME - T</p>
       </div>
 
-      <div className="mt-20">
+      <Link href={"/service-category"} className="mt-20">
         <SolidButton text="청약 시작하기" size="L" isColorPrimary />
-      </div>
+      </Link>
     </section>
   );
 }
