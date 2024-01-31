@@ -8,9 +8,10 @@ import DigitterBgImage from "../../../public/assets/slider/digiterra.png";
 import DigitterLogoImage from "../../../public/assets/logos/digitera_logo.png";
 import PorkHubBgImage from "../../../public/assets/slider/porkHub.png";
 import PorkHubLogoImage from "../../../public/assets/logos/porkhub_logo.png";
-import LeftArrowIcon from "../../icons/leftArrowIcon.svg";
+
 import { cls } from "@/utils/cls";
 import Link from "next/link";
+import LeftArrowIcon from "@/icons/LeftArrowIcon";
 
 const sliderVariants: Variants = {
   initial: ({ direction, isInitialVisible }) => ({
