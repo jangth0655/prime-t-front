@@ -13,7 +13,12 @@ export default function Intro() {
       </div>
 
       <Link href={"/service-category"} className="mt-20">
-        <SolidButton text="청약 시작하기" size="L" isColorPrimary />
+        <SolidButton
+          text="청약 시작하기"
+          size="L"
+          isPrimaryColor
+          primaryColor="#2D47DB"
+        />
       </Link>
     </section>
   );

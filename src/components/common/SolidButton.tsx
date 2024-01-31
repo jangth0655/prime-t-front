@@ -4,7 +4,8 @@ import { cls } from "@/utils/cls";
 import { ButtonHTMLAttributes } from "react";
 
 type Props = {
-  isColorPrimary?: boolean;
+  isPrimaryColor?: boolean;
+  primaryColor?: string;
   isColorSlate?: boolean;
   size: "L" | "M" | "S";
   text: string;
@@ -12,11 +13,12 @@ type Props = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function SolidButton({
-  isColorPrimary,
+  isPrimaryColor,
   isColorSlate,
   text,
   size,
   onClick,
+  primaryColor,
   ...props
 }: Props) {
   const sizeType = {
@@ -33,8 +35,8 @@ export default function SolidButton({
       onClick={onClick}
       className={cls(
         isDisabled ? "bg-slate-S400 text-slate-S500" : "",
-        isColorPrimary
-          ? "bg-primary-P300 text-slate-S100 hover:bg-primary-P400 hover:text-slate-S300"
+        isPrimaryColor
+          ? `bg-[${primaryColor}] text-slate-S100 hover:bg-primary-P400 hover:text-slate-S300`
           : "",
         isColorSlate ? "bg-slate-S300 text-black hover:bg-slate-S400" : "",
         "text-body leading-body font-regular flex justify-center items-center rounded-lg transition-all",
