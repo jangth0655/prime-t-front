@@ -33,10 +33,13 @@ export default function SolidButton({
     <button
       {...props}
       onClick={onClick}
+      style={{
+        backgroundColor: isPrimaryColor ? primaryColor : "",
+      }}
       className={cls(
         isDisabled ? "bg-slate-S400 text-slate-S500" : "",
         isPrimaryColor
-          ? `bg-[${primaryColor}] text-slate-S100 hover:bg-primary-P400 hover:text-slate-S300`
+          ? `text-slate-S100 hover:bg-primary-P400 hover:text-slate-S300`
           : "",
         isColorSlate ? "bg-slate-S300 text-black hover:bg-slate-S400" : "",
         "text-body leading-body font-regular flex justify-center items-center rounded-lg transition-all",

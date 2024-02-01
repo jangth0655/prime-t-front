@@ -3,14 +3,15 @@
 import { useCallback, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 import DigitterBgImage from "../../../public/assets/slider/digiterra.png";
 import DigitterLogoImage from "../../../public/assets/logos/digitera_logo.png";
 import PorkHubBgImage from "../../../public/assets/slider/porkHub.png";
 import PorkHubLogoImage from "../../../public/assets/logos/porkhub_logo.png";
-import LeftArrowIcon from "../../icons/leftArrowIcon.svg";
+
 import { cls } from "@/utils/cls";
-import Link from "next/link";
+import LeftArrowIcon from "@/icons/LeftArrowIcon";
 
 const sliderVariants: Variants = {
   initial: ({ direction, isInitialVisible }) => ({
@@ -162,18 +163,18 @@ const slideList: Slider[] = [
     title: "디지테라",
     bg: DigitterBgImage,
     logo: DigitterLogoImage,
-    pageUrl: "/digiterra",
+    pageUrl: routes.digiterra,
   },
   {
     key: "porkHub",
     title: "포크허브",
     bg: PorkHubBgImage,
     logo: PorkHubLogoImage,
-    pageUrl: "/porkHub",
+    pageUrl: routes.porkHub,
   },
   {
     key: "ready",
     title: "페이지 준비중입니다.",
-    pageUrl: "/service-category",
+    pageUrl: routes.serviceCategory,
   },
 ];
