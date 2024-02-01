@@ -8,6 +8,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import HamburgerMenuIcon from "../icons/hamburgerMenuIcon.svg";
 import CloseIcon from "@/icons/CloseIcon";
 import LogoWhite from "@/icons/LogoWhite";
+import { routes } from "@/routes";
 
 const modalVariants: Variants = {
   initial: {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SolidButton from "../common/SolidButton";
+import { routes } from "@/routes";
 
 export default function Intro() {
   return (

@@ -1,4 +1,4 @@
-const routes = {
+export const routes = {
   mainHome: "/",
   cs: "/cs",
   digiterra: "/digiterra",
