@@ -37,7 +37,7 @@ export default function Navbar() {
   return pathName === "/" ? null : (
     <nav className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
       <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 z-40 border-b-[1px] border-b-slate-S600 ">
-        <Link href={"/serviceIntro"}>
+        <Link href={routes.serviceIntro}>
           <LogoWhite />
         </Link>
 
@@ -90,27 +90,27 @@ const navItems: NavItem[] = [
   {
     pageName: "홈",
     key: "home",
-    urls: "/",
+    urls: routes.mainHome,
   },
   {
     pageName: "마켓",
     key: "market",
-    urls: "/market",
+    urls: routes.market,
   },
   {
     pageName: "마이월렛",
     key: "myWallet",
-    urls: "/myWallet",
+    urls: routes.myWallet,
   },
   {
     pageName: "고객센터",
     key: "cs",
-    urls: "/cs",
+    urls: routes.cs,
   },
   {
     pageName: "마이페이지",
     key: "myPage",
-    urls: "/myPage",
+    urls: routes.myPage,
   },
 ];
 

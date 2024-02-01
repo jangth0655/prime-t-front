@@ -12,7 +12,7 @@ export default function Intro() {
         <p>PRIME - T</p>
       </div>
 
-      <Link href={"/service-category"} className="mt-20">
+      <Link href={routes.serviceCategory} className="mt-20">
         <SolidButton
           text="청약 시작하기"
           size="L"
