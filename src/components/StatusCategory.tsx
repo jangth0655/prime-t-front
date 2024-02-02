@@ -1,17 +1,22 @@
 "use client";
 
+import { cls } from "@/utils/cls";
 import { motion } from "framer-motion";
 
 type Props = {
   paddingTop?: string;
-  onStatusCategory: (item: Status) => void;
-  status: Status;
+  onStatusCategory: (item: StatusCategoryType) => void;
+  status: StatusCategoryType;
+  activeStatusColor: string;
+  statusColor: string;
 };
 
 export default function StatusCategory({
   paddingTop,
   onStatusCategory,
   status,
+  activeStatusColor,
+  statusColor,
 }: Props) {
   return (
     <ul
@@ -26,7 +31,17 @@ export default function StatusCategory({
           key={item.key}
           className="min-w-[5.625rem] w-full h-14 flex justify-center items-center relative cursor-pointer px-4"
         >
-          <span className="text-body font-bold leading-body">{item.name}</span>
+          <span
+            style={{
+              color: status.key === item.key ? activeStatusColor : statusColor,
+            }}
+            className={cls(
+              status.key === item.key ? "font-bold " : "font-regular",
+              "text-body leading-body"
+            )}
+          >
+            {item.name}
+          </span>
           {status.key === item.key && (
             <motion.div
               layoutId="status"
@@ -39,15 +54,15 @@ export default function StatusCategory({
   );
 }
 
-export type StatusKey = "all" | "upcoming" | "progress" | "close";
-export type StatusName = "전체" | "예정" | "진행중" | "마감";
+export type StatusCategoryKey = "all" | "upcoming" | "progress" | "close";
+export type StatusCategoryName = "전체" | "예정" | "진행중" | "마감";
 
-export type Status = {
-  name: StatusName;
-  key: StatusKey;
+export type StatusCategoryType = {
+  name: StatusCategoryName;
+  key: StatusCategoryKey;
 };
 
-const statusList: Status[] = [
+const statusList: StatusCategoryType[] = [
   {
     name: "전체",
     key: "all",

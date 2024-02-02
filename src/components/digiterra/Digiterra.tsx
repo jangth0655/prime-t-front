@@ -2,14 +2,14 @@
 
 import { useCallback, useState } from "react";
 import PageHeader from "../PageHeader";
-import StatusCategory, { Status } from "../StatusCategory";
+import StatusCategory, { StatusCategoryType } from "../StatusCategory";
 
 export default function Digiterra() {
-  const [categoryStatus, setCategoryStatus] = useState<Status>({
+  const [categoryStatus, setCategoryStatus] = useState<StatusCategoryType>({
     key: "all",
     name: "전체",
   });
-  const onStatusCategory = useCallback((status: Status) => {
+  const onStatusCategory = useCallback((status: StatusCategoryType) => {
     setCategoryStatus(status);
   }, []);
 
@@ -19,6 +19,8 @@ export default function Digiterra() {
       <StatusCategory
         onStatusCategory={onStatusCategory}
         status={categoryStatus}
+        statusColor="#797D9E"
+        activeStatusColor="#000000"
       />
     </div>
   );
