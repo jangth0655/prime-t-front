@@ -27,6 +27,7 @@ export default function RootLayout({
             <Navbar />
             {children}
           </main>
+          <div id="modal"></div>
         </QueryProvider>
       </body>
     </html>

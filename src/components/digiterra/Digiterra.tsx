@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import PageHeader from "../PageHeader";
 import StatusCategory, { StatusCategoryType } from "../StatusCategory";
+import DigiterraList from "./DigiterraList";
 
 export default function Digiterra() {
   const [categoryStatus, setCategoryStatus] = useState<StatusCategoryType>({
@@ -22,6 +23,7 @@ export default function Digiterra() {
         statusColor="#797D9E"
         activeStatusColor="#000000"
       />
+      <DigiterraList />
     </div>
   );
 }
