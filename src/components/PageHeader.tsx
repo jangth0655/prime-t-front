@@ -8,9 +8,10 @@ import LeftArrowIcon from "@/icons/LeftArrowIcon";
 type Props = {
   title: string;
   backUrl?: string;
+  top?: string;
 };
 
-export default function PageHeader({ title, backUrl }: Props) {
+export default function PageHeader({ title, backUrl, top }: Props) {
   const router = useRouter();
 
   const onBackPage = useCallback(() => {
@@ -22,7 +23,12 @@ export default function PageHeader({ title, backUrl }: Props) {
   }, [backUrl, router]);
 
   return (
-    <header className="h-14 flex justify-center items-center fixed w-full top-[3.75rem]">
+    <header
+      style={{
+        top: top || "3.75rem",
+      }}
+      className="h-14 flex justify-center items-center fixed w-full bg-white z-40"
+    >
       <button
         onClick={onBackPage}
         className="absolute w-10 h-10 left-1 flex justify-center items-center"

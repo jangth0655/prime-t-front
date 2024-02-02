@@ -12,6 +12,7 @@ import PorkHubLogoImage from "../../../public/assets/logos/porkhub_logo.png";
 
 import { cls } from "@/utils/cls";
 import LeftArrowIcon from "@/icons/LeftArrowIcon";
+import { routes } from "@/routes";
 
 const sliderVariants: Variants = {
   initial: ({ direction, isInitialVisible }) => ({
