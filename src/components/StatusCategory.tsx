@@ -1,23 +1,18 @@
 "use client";
 
-import { Status, useStatusCategoryStore } from "@/store/useCategoryStore";
 import { motion } from "framer-motion";
-import { useCallback } from "react";
 
 type Props = {
   paddingTop?: string;
+  onStatusCategory: (item: Status) => void;
+  status: Status;
 };
 
-export default function StatusCategory({ paddingTop }: Props) {
-  const { status, setStatus } = useStatusCategoryStore();
-
-  const handleStatusCategory = useCallback(
-    (category: Status) => {
-      setStatus(category);
-    },
-    [setStatus]
-  );
-
+export default function StatusCategory({
+  paddingTop,
+  onStatusCategory,
+  status,
+}: Props) {
   return (
     <ul
       style={{
@@ -27,7 +22,7 @@ export default function StatusCategory({ paddingTop }: Props) {
     >
       {statusList.map((item) => (
         <li
-          onClick={() => handleStatusCategory(item)}
+          onClick={() => onStatusCategory(item)}
           key={item.key}
           className="min-w-[5.625rem] w-full h-14 flex justify-center items-center relative cursor-pointer px-4"
         >
@@ -43,6 +38,14 @@ export default function StatusCategory({ paddingTop }: Props) {
     </ul>
   );
 }
+
+export type StatusKey = "all" | "upcoming" | "progress" | "close";
+export type StatusName = "전체" | "예정" | "진행중" | "마감";
+
+export type Status = {
+  name: StatusName;
+  key: StatusKey;
+};
 
 const statusList: Status[] = [
   {
