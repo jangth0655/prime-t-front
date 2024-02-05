@@ -10,7 +10,7 @@ export default function FeedEntity({ text, isPorkHub }: Props) {
     <p
       className={cls(
         isPorkHub
-          ? ""
+          ? "text-slate-S400 text-label leading-label font-regular my-1"
           : "text-slate-S400 text-label leading-label font-regular",
         ""
       )}

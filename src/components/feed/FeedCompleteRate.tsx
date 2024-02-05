@@ -10,7 +10,7 @@ export default function FeedCompleteRate({ text, isPorkHub }: Props) {
     <p
       className={cls(
         isPorkHub
-          ? ""
+          ? "text-h4 leading-h4 text-slate-S200 font-bold"
           : "text-subtitle leading-subtitle text-primary-P100 font-bold",
         ""
       )}

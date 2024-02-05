@@ -10,7 +10,7 @@ export default function FeedTitle({ text, isPorkHub }: Props) {
     <p
       className={cls(
         isPorkHub
-          ? ""
+          ? "text-slate-S200 text-body leading-body font-bold"
           : "text-slate-S900 text-body-s leading-body-s font-regular",
         "line-clamp-2"
       )}

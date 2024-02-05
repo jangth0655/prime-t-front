@@ -9,6 +9,7 @@ type Props = {
   status: StatusCategoryType;
   activeStatusColor: string;
   statusColor: string;
+  isPorkHub? : boolean;
 };
 
 export default function StatusCategory({
@@ -17,13 +18,14 @@ export default function StatusCategory({
   status,
   activeStatusColor,
   statusColor,
+  isPorkHub
 }: Props) {
   return (
     <ul
       style={{
         paddingTop: paddingTop || "7.25rem",
       }}
-      className="border-b-[1px] border-b-slate-S200 flex"
+      className={ isPorkHub === true ? "bg-slate-S900 border-b-[1px] border-b-slate-S600 flex" : "border-b-[1px] border-b-slate-S200 flex" }
     >
       {statusList.map((item) => (
         <li
