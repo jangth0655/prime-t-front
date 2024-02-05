@@ -1,11 +1,12 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
-import { StatusCategoryType } from "../StatusCategory";
+import Link from "next/link";
 
+import { StatusCategoryType } from "../StatusCategory";
 import StatusTag from "../common/StatusTag";
 import FeedExpirationDate from "../feed/FeedExpirationDate";
-import FeedDescription from "../feed/FeedDescription";
+import FeedTitle from "../feed/FeedTitle";
 import FeedEntity from "../feed/FeedEntity";
 import FeedCompleteRate from "../feed/FeedCompleteRate";
 
@@ -13,6 +14,7 @@ import DigiterraImage_1 from "../../../public/assets/digiterra/digitera_thumbnai
 import DigiterraImage_2 from "../../../public/assets/digiterra/digitera_thumbnail_2.png";
 import DigiterraImage_3 from "../../../public/assets/digiterra/digitera_thumbnail_3.png";
 import DigiterraImage_4 from "../../../public/assets/digiterra/digitera_thumbnail_4.png";
+import { routes } from "@/routes";
 
 type Props = {
   status: StatusCategoryType;
@@ -27,38 +29,37 @@ export default function DigiterraList({ status }: Props) {
   return (
     <ul className="mt-4 space-y-4 px-4  flex-col flex justify-center items-center">
       {filterCategoryStatus.map((item) => (
-        <li
-          key={item.key}
-          className="pt-1 pb-4 px-4 w-[20.5rem] border-[1px] border-slate-S200 rounded-lg"
-        >
-          <FeedExpirationDate date="0000.00.00" />
-          <div className="flex h-full">
-            <div className="mr-2 min-w-[5.75rem]">
-              {item.image ? (
-                <Image
-                  width={92}
-                  height={92}
-                  src={item.image}
-                  alt=""
-                  className="object-cover rounded-lg"
-                />
-              ) : (
-                <div className="w-[5.75rem] h-[5.75rem] bg-slate-S400 rounded-lg" />
-              )}
-            </div>
+        <Link href={`${routes.digiterra}/${item.key}`} key={item.key}>
+          <li className="pt-1 pb-4 px-4 w-[20.5rem] border-[1px] border-slate-S200 rounded-lg">
+            <FeedExpirationDate date="0000.00.00" />
+            <div className="flex h-full">
+              <div className="mr-2 min-w-[5.75rem]">
+                {item.image ? (
+                  <Image
+                    width={92}
+                    height={92}
+                    src={item.image}
+                    alt=""
+                    className="object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="w-[5.75rem] h-[5.75rem] bg-slate-S400 rounded-lg" />
+                )}
+              </div>
 
-            <div className="flex flex-col justify-between">
-              <div>
-                <FeedDescription text="청약 예시 문구입니다. 두 줄 이상 넘어갈 시 말줄임 표시를 추가합니다" />
-                <FeedEntity text="청약단체/인물" />
-              </div>
-              <div className="flex justify-between items-center">
-                <FeedCompleteRate text={item.anyText} />
-                <StatusTag statusType={item.status} />
+              <div className="flex flex-col justify-between">
+                <div>
+                  <FeedTitle text="청약 예시 문구입니다. 두 줄 이상 넘어갈 시 말줄임 표시를 추가합니다" />
+                  <FeedEntity text="청약단체/인물" />
+                </div>
+                <div className="flex justify-between items-center">
+                  <FeedCompleteRate text={item.anyText} />
+                  <StatusTag statusType={item.status} />
+                </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+        </Link>
       ))}
     </ul>
   );

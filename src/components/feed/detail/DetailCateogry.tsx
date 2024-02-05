@@ -5,14 +5,14 @@ type Props = {
   isPorkHub?: boolean;
 };
 
-export default function FeedDescription({ text, isPorkHub }: Props) {
+export default function DetailCategory({ text, isPorkHub }: Props) {
   return (
     <p
       className={cls(
         isPorkHub
           ? ""
-          : "text-slate-S900 text-body-s leading-body-s font-regular",
-        "line-clamp-2"
+          : "text-label leading-label text-slate-S300 font-regular",
+        ""
       )}
     >
       {text}
