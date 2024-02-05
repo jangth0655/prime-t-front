@@ -1,27 +1,23 @@
-type StatusType = "progress" | "upcoming" | "closed";
+import { StatusCategoryKey, StatusCategoryType } from "../StatusCategory";
 
 type Props = {
-  statusType: StatusType;
+  statusType: StatusCategoryType;
 };
 
 export default function StatusTag({ statusType }: Props) {
-  const styleMap: Record<StatusType, string> = {
+  const styleMap: Partial<Record<StatusCategoryKey, string>> = {
     progress: "bg-primary-P400",
     upcoming: "bg-slate-S500",
-    closed: "bg-slate-600",
-  };
-
-  const statusText: Record<StatusType, string> = {
-    progress: "진행중",
-    upcoming: "모집예정",
-    closed: "모집마감",
+    close: "bg-slate-600",
   };
 
   return (
     <div
-      className={`${styleMap[statusType]} text-label font-regular leading-label text-slate-S200 rounded-2xl`}
+      className={`${
+        styleMap[statusType.key]
+      } text-label font-regular leading-label text-slate-S200 rounded-2xl px-2 py-1`}
     >
-      {statusText[statusType]}
+      {statusType.name}
     </div>
   );
 }

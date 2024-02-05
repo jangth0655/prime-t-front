@@ -23,7 +23,7 @@ export default function Digiterra() {
         statusColor="#797D9E"
         activeStatusColor="#000000"
       />
-      <DigiterraList />
+      <DigiterraList status={categoryStatus} />
     </div>
   );
 }
