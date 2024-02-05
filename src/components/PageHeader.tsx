@@ -4,12 +4,13 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import LeftArrowIcon from "@/icons/LeftArrowIcon";
+import { cls } from "@/utils/cls";
 
 type Props = {
   title: string;
   backUrl?: string;
   top?: string;
-  isPorkHub? : boolean;
+  isPorkHub?: boolean;
 };
 
 export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
@@ -28,17 +29,29 @@ export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
       style={{
         top: top || "3.75rem",
       }}
-      className={isPorkHub === true 
-        ? "h-14 flex justify-center items-center fixed w-full z-40 bg-slate-S900 border-b-[1px] border-b-slate-S600" 
-        : "h-14 flex justify-center items-center fixed w-full z-40 bg-white"}
+      className={cls(
+        isPorkHub
+          ? "bg-slate-S900 border-b-[1px] border-b-slate-S600"
+          : "bg-white",
+        "h-14 flex justify-center items-center fixed w-full z-30"
+      )}
     >
       <button
         onClick={onBackPage}
         className="absolute w-10 h-10 left-1 flex justify-center items-center"
       >
-        <LeftArrowIcon color={isPorkHub === true ? "#eef1ff" : "#000000"} />
+        <LeftArrowIcon color={isPorkHub ? "#eef1ff" : "#000000"} />
       </button>
-      <p className={isPorkHub === true ? "text-body leading-body text-slate-S200 font-regular" : "text-body leading-body text-black font-regular"}>{title}</p>
+      <p
+        className={cls(
+          isPorkHub
+            ? "text-slate-S200 font-regular"
+            : "text-black font-regular",
+          "text-body leading-body"
+        )}
+      >
+        {title}
+      </p>
     </header>
   );
 }

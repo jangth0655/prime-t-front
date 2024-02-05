@@ -9,6 +9,7 @@ type Props = {
   isColorSlate?: boolean;
   size: "L" | "M" | "S";
   text: string;
+  width?: string;
   onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -19,6 +20,7 @@ export default function SolidButton({
   size,
   onClick,
   primaryColor,
+  width,
   ...props
 }: Props) {
   const sizeType = {
@@ -35,6 +37,7 @@ export default function SolidButton({
       onClick={onClick}
       style={{
         backgroundColor: isPrimaryColor ? primaryColor : "",
+        width,
       }}
       className={cls(
         isDisabled ? "bg-slate-S400 text-slate-S500" : "",
