@@ -20,6 +20,7 @@ const config: Config = {
         body: "1rem",
         "body-s": "0.875rem",
         label: "0.75rem",
+        subtitle: "1rem",
         caption: "0.625rem",
       },
       lineHeight: {
@@ -29,6 +30,7 @@ const config: Config = {
         h3: "2rem",
         h4: "1.75rem",
         body: "1.5rem",
+        subtitle: "1rem",
         "body-s": "1.25rem",
         label: "1rem",
         caption: "0.875rem",
