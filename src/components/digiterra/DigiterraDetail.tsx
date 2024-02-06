@@ -1,6 +1,10 @@
 "use client";
 
+import { useCallback, useRef, useState } from "react";
+import { useCloseOnOutSideClick } from "../commonHooks/useCloseOnOutSideClick";
 import Image from "next/image";
+import dayjs from "dayjs";
+
 import DetailCategory from "../feed/detail/DetailCateogry";
 import DetailTitle from "../feed/detail/DetailTitle";
 import DetailPeriod from "../feed/detail/DetailPeriod";
@@ -9,13 +13,13 @@ import DetailIssueAmount from "../feed/detail/DetailIssueAmount";
 import DetailAmount from "../feed/detail/DetailAmount";
 import DetailCompleteRate from "../feed/detail/DetailCompleteRate";
 import DetailProductIntroHeader from "../feed/detail/DetailProductIntroHeader";
+import BottomModal from "../Modal/BottomModal";
 
+import { formatDateYYYMMDD } from "@/utils/formatDate";
+import { formatCurrency } from "@/utils/formatNumber";
 import TempImage from "../../../public/assets/digiterra/temp_digit_detail.png";
 import SolidButton from "../common/SolidButton";
 import StartIcon from "@/icons/StarIcon";
-import { useCallback, useRef, useState } from "react";
-import BottomModal from "../Modal/BottomModal";
-import { useCloseOnOutSideClick } from "../commonHooks/useCloseOnOutSideClick";
 
 type Props = {
   detailId: number;
@@ -25,6 +29,11 @@ export default function DigiterraDetail({ detailId }: Props) {
   const [isBottomModal, setIsBottomModal] = useState(false);
   const bottomModalRef = useRef(null);
   const involveButtonRef = useRef(null);
+
+  const formattedYesterday = formatDateYYYMMDD(
+    dayjs().subtract(1, "day").toDate()
+  );
+  const formattedToday = formatDateYYYMMDD(new Date());
 
   const openBottomModal = useCallback(() => {
     setIsBottomModal(true);
@@ -51,13 +60,17 @@ export default function DigiterraDetail({ detailId }: Props) {
         <DetailTitle text="디지테라 청약 1호" />
 
         <div className="flex justify-between items-center mt-2 mb-3">
-          <DetailPeriod date="2024.00.00 ~ 2024.00.00" />
+          <div className="flex items-center space-x-1">
+            <DetailPeriod date={formattedYesterday} />
+            <span className="text-label leading-label text-slate-S400">~</span>
+            <DetailPeriod date={formattedToday} />
+          </div>
           <StatusTag statusType={{ key: "progress", name: "진행중" }} />
         </div>
 
-        <DetailIssueAmount issueAmount={5000000} />
+        <DetailIssueAmount issueAmount={formatCurrency(5000000)} />
         <div className="mt-1 flex justify-between items-center">
-          <DetailAmount amount={10000000000} />
+          <DetailAmount amount={formatCurrency(1000000000)} />
           <DetailCompleteRate text="50% 달성" />
         </div>
       </div>

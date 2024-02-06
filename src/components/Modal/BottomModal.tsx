@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+
 import Modal from "./Modal";
 
 type Props = {
@@ -21,7 +22,7 @@ const BottomModal = forwardRef<HTMLDivElement, Props>(
           }}
           className={`${
             bgColor || "bg-white"
-          } min-w-[22.5rem] rounded-t-lg fixed z-50 w-full`}
+          } min-w-[22.5rem] rounded-t-lg fixed z-30 w-full`}
         >
           {children}
         </div>

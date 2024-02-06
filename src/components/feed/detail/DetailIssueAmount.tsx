@@ -1,7 +1,7 @@
 import { cls } from "@/utils/cls";
 
 type Props = {
-  issueAmount: number;
+  issueAmount: string;
   isPorkHub?: boolean;
 };
 
@@ -15,7 +15,7 @@ export default function DetailIssueAmount({ issueAmount, isPorkHub }: Props) {
         ""
       )}
     >
-      {issueAmount}
+      {issueAmount} STO
     </p>
   );
 }
