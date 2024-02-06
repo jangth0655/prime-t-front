@@ -33,7 +33,7 @@ export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
         isPorkHub
           ? "bg-slate-S900 border-b-[1px] border-b-slate-S600"
           : "bg-white",
-        "h-14 flex justify-center items-center fixed w-full z-30"
+        "h-14 flex justify-center items-center fixed w-full z-20"
       )}
     >
       <button

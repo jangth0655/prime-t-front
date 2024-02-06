@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 
 import { FAQItemType } from "./FAQ";
 import PlusIcon from "../../icons/plusIcon.svg";
-import MinusIcon from "../../icons/MinusIcon.svg";
+import MinusIcon from "../../icons/minusIcon.svg";
 
 type Props = {
   item: FAQItemType;

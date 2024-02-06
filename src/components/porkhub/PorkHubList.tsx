@@ -48,7 +48,10 @@ export default function DigiterraList({ status }: Props) {
 
               <div className="flex flex-col justify-between">
                 <div>
-                  <FeedTitle text="청약 예시 문구입니다. 두 줄 이상 넘어갈 시 말줄임 표시를 추가합니다" isPorkHub={true}/>
+                  <FeedTitle
+                    text="청약 예시 문구입니다. 두 줄 이상 넘어갈 시 말줄임 표시를 추가합니다"
+                    isPorkHub={true}
+                  />
                   <FeedEntity text="청약단체/인물" isPorkHub={true} />
                   <FeedExpirationDate date="0000.00.00" />
                 </div>
