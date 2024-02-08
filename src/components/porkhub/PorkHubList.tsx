@@ -10,10 +10,10 @@ import FeedTitle from "../feed/FeedTitle";
 import FeedEntity from "../feed/FeedEntity";
 import FeedCompleteRate from "../feed/FeedCompleteRate";
 
-import PorkHubImage_1 from "../../../public/assets/porkHub/porkHub_thumbnail_1.png";
+/* import PorkHubImage_1 from "../../../public/assets/porkHub/porkHub_thumbnail_1.png";
 import PorkHubImage_2 from "../../../public/assets/porkHub/porkHub_thumbnail_2.png";
 import PorkHubImage_3 from "../../../public/assets/porkHub/porkHub_thumbnail_3.png";
-import PorkHubImage_4 from "../../../public/assets/porkHub/porkHub_thumbnail_4.png";
+import PorkHubImage_4 from "../../../public/assets/porkHub/porkHub_thumbnail_4.png"; */
 import { routes } from "@/routes";
 
 type Props = {
@@ -33,7 +33,7 @@ export default function DigiterraList({ status }: Props) {
           <li className="w-[20.5rem] rounded-lg">
             <div className="flex h-full">
               <div className="mr-2 min-w-[7.5rem]">
-                {item.image ? (
+                {/*    {item.image ? (
                   <Image
                     width={120}
                     height={120}
@@ -43,7 +43,7 @@ export default function DigiterraList({ status }: Props) {
                   />
                 ) : (
                   <div className="w-[5.75rem] h-[5.75rem] bg-slate-S400 rounded-lg" />
-                )}
+                )} */}
               </div>
 
               <div className="flex flex-col justify-between">
@@ -88,7 +88,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 1,
     anyText: "0000% 달성",
-    image: PorkHubImage_1,
+    /* image: PorkHubImage_1, */
   },
   {
     status: {
@@ -100,7 +100,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 2,
     anyText: "0000% 달성",
-    image: PorkHubImage_2,
+    /* image: PorkHubImage_2, */
   },
 
   {
@@ -113,7 +113,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 3,
     anyText: "0000% 달성",
-    image: PorkHubImage_3,
+    /* image: PorkHubImage_3, */
   },
   {
     status: {
@@ -125,7 +125,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 4,
     anyText: "0000% 달성",
-    image: PorkHubImage_4,
+    /* image: PorkHubImage_4, */
   },
   {
     status: {
@@ -137,7 +137,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 5,
     anyText: "0000% 달성",
-    image: PorkHubImage_1,
+    /* image: PorkHubImage_1, */
   },
   {
     status: {
@@ -149,7 +149,7 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 6,
     anyText: "0000% 달성",
-    image: PorkHubImage_2,
+    /* image: PorkHubImage_2, */
   },
   {
     status: {
@@ -161,6 +161,6 @@ const digiterraList: DigiterraType[] = [
     entity: "청약단체/인물",
     key: 7,
     anyText: "0000% 달성",
-    image: PorkHubImage_3,
+    /* image: PorkHubImage_3, */
   },
 ];
