@@ -1,11 +1,11 @@
-import { StatusCategoryKey, StatusCategoryType } from "../StatusCategory";
+import { CategoryType } from "./TabCategory";
 
 type Props = {
-  statusType: StatusCategoryType;
+  statusType: CategoryType;
 };
 
 export default function StatusTag({ statusType }: Props) {
-  const styleMap: Partial<Record<StatusCategoryKey, string>> = {
+  const styleMap: Partial<Record<CategoryType["key"], string>> = {
     progress: "bg-primary-P400",
     upcoming: "bg-slate-S500",
     close: "bg-slate-600",

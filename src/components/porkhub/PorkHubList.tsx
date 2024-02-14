@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
-import { StatusCategoryType } from "../StatusCategory";
+import { StatusCategoryType } from "../common/TabCategory";
 import StatusTag from "../common/StatusTag";
 import FeedExpirationDate from "../feed/FeedExpirationDate";
 import FeedTitle from "../feed/FeedTitle";

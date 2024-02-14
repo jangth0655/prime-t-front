@@ -2,16 +2,17 @@
 
 import { StaticImageData } from "next/image";
 
-import { StatusCategoryType } from "../StatusCategory";
+import DigiterraItem from "./DigiterraItem";
 
 import DigiterraImage_1 from "../../../public/assets/digiterra/digitera_thumbnail_1.png";
 import DigiterraImage_2 from "../../../public/assets/digiterra/digitera_thumbnail_2.png";
 import DigiterraImage_3 from "../../../public/assets/digiterra/digitera_thumbnail_3.png";
 import DigiterraImage_4 from "../../../public/assets/digiterra/digitera_thumbnail_4.png";
-import DigiterraItem from "./DigiterraItem";
+
+import { CategoryType } from "../common/TabCategory";
 
 type Props = {
-  status: StatusCategoryType;
+  status: CategoryType;
 };
 
 export default function DigiterraList({ status }: Props) {
@@ -30,7 +31,7 @@ export default function DigiterraList({ status }: Props) {
 }
 
 export type DigiterraType = {
-  status: StatusCategoryType;
+  status: CategoryType;
   description: string;
   entity: string;
   key: number;

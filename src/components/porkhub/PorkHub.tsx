@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from "react";
 import PageHeader from "../PageHeader";
-import StatusCategory, { StatusCategoryType } from "../StatusCategory";
-import PorkHubList from './PorkHubList'
+import StatusCategory, { StatusCategoryType } from "../common/TabCategory";
+import PorkHubList from "./PorkHubList";
 export default function PorkHub() {
   const [categoryStatus, setCategoryStatus] = useState<StatusCategoryType>({
     key: "all",
@@ -15,7 +15,7 @@ export default function PorkHub() {
 
   return (
     <div>
-      <PageHeader title="포크허브" isPorkHub={ true } />
+      <PageHeader title="포크허브" isPorkHub={true} />
       <StatusCategory
         onStatusCategory={onStatusCategory}
         status={categoryStatus}
@@ -23,7 +23,7 @@ export default function PorkHub() {
         isPorkHub={true}
         activeStatusColor="#eef1ff"
       />
-      <PorkHubList status={categoryStatus}/>
+      <PorkHubList status={categoryStatus} />
     </div>
   );
 }
