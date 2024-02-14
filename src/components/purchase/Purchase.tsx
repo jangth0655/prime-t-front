@@ -16,7 +16,6 @@ export default function Purchase() {
           <BuyerInfo label="이메일 주소" value="asdf1234@gmail.com" />
         </div>
       </BottomToggleInfo>
-      <Divider />
     </div>
   );
 }

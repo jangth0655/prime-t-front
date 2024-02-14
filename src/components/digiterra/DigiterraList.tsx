@@ -9,10 +9,10 @@ import DigiterraImage_2 from "../../../public/assets/digiterra/digitera_thumbnai
 import DigiterraImage_3 from "../../../public/assets/digiterra/digitera_thumbnail_3.png";
 import DigiterraImage_4 from "../../../public/assets/digiterra/digitera_thumbnail_4.png";
 
-import { CategoryType } from "../common/TabCategory";
+import { StatusCategory } from "./Digiterra";
 
 type Props = {
-  status: CategoryType;
+  status: StatusCategory;
 };
 
 export default function DigiterraList({ status }: Props) {
@@ -23,6 +23,11 @@ export default function DigiterraList({ status }: Props) {
 
   return (
     <ul className="mt-4 space-y-4 px-4  flex-col flex justify-center items-center">
+      <div className="w-[20.5rem]">
+        <span className="text-label leading-label font-regular text-slate-S400">
+          999개
+        </span>
+      </div>
       {filterCategoryStatus.map((item) => (
         <DigiterraItem key={item.key} item={item} />
       ))}
@@ -31,7 +36,7 @@ export default function DigiterraList({ status }: Props) {
 }
 
 export type DigiterraType = {
-  status: CategoryType;
+  status: StatusCategory;
   description: string;
   entity: string;
   key: number;

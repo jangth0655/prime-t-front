@@ -38,7 +38,7 @@ export default function Navbar() {
   return pathName === "/" ? null : (
     <nav>
       <div className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
-        <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 z-30 border-b-[1px] border-b-slate-S600">
+        <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 border-b-[1px] border-b-slate-S600">
           <Link href={routes.serviceIntro}>
             <LogoWhite />
           </Link>
@@ -59,10 +59,10 @@ export default function Navbar() {
             transition={{
               ease: "easeInOut",
             }}
-            className="relative z-50"
+            className="absolute z-50 w-full top-0 bottom-0"
           >
-            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black opacity-50 z-30 h-[100vh]" />
-            <motion.ul className="pt-16 absolute left-[2.44rem] top-0 right-0 z-50 bg-slate-S800 h-[100vh]">
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black opacity-50 h-[100vh]" />
+            <motion.ul className="pt-16 absolute left-[2.44rem] top-0 right-0 bg-slate-S800 h-[100vh]">
               <button
                 type="button"
                 onClick={closeNavModal}

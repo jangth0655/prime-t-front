@@ -68,7 +68,7 @@ type SortCategory = {
   key: SortCategoryKey;
 };
 
-type StatusCategory = {
+export type StatusCategory = {
   name: StatusCategoryName;
   key: StatusCategoryKey;
 };
