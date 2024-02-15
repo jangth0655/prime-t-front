@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
-import { StatusCategoryType } from "../common/TabCategory";
+/* import { StatusCategoryType } from "../common/TabCategory"; */
 import StatusTag from "../common/StatusTag";
 import FeedExpirationDate from "../feed/FeedExpirationDate";
 import FeedTitle from "../feed/FeedTitle";
@@ -17,7 +17,7 @@ import PorkHubImage_4 from "../../../public/assets/porkHub/porkHub_thumbnail_4.p
 import { routes } from "@/routes";
 
 type Props = {
-  status: StatusCategoryType;
+  status: any;
 };
 
 export default function DigiterraList({ status }: Props) {
@@ -69,7 +69,7 @@ export default function DigiterraList({ status }: Props) {
 }
 
 type DigiterraType = {
-  status: StatusCategoryType;
+  status: any;
   description: string;
   entity: string;
   key: number;

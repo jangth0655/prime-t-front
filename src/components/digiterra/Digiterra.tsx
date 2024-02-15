@@ -6,6 +6,9 @@ import PageHeader from "../PageHeader";
 import DigiterraList from "./DigiterraList";
 import Selector, { SelectItemType } from "../common/Selector";
 
+import { api } from "@/services/httpClient";
+import axios from "axios";
+
 export default function Digiterra() {
   const [categoryStatus, setCategoryStatus] = useState<StatusCategory>({
     name: "전체",
@@ -25,6 +28,29 @@ export default function Digiterra() {
     setSortedItem(status as SortCategory);
   }, []);
 
+  type LoginTest = {
+    access_token: string;
+    token_type: string;
+  };
+  const logintestbutton = async () => {
+    const response = await (
+      await axios.post<Promise<LoginTest>>(
+        "/api/v1/login",
+        {
+          username: "user@example.com",
+          password: "secret_password",
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+    ).data;
+
+    return response;
+  };
+
   return (
     <div>
       <PageHeader title="디지테라" />
@@ -43,6 +69,9 @@ export default function Digiterra() {
           selectorBg="#2C3249"
           selectedColor="#12162A"
         />
+      </div>
+      <div className="p-4 border-2 rounded-md">
+        <button onClick={logintestbutton}>로그인 테스트버튼</button>
       </div>
       <DigiterraList status={categoryStatus} />
     </div>

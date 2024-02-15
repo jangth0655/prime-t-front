@@ -48,7 +48,7 @@ export default function Selector({
           borderColor: activeBorderColor || "#5770F2",
         }}
         className={cls(
-          isActive ? "border-[1px]" : "",
+          isActive ? "border-b-[1px]" : "",
           "w-[10rem] p-2 flex items-center justify-between cursor-pointer"
         )}
       >
