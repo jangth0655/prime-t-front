@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import HttpError from "./httpError";
-import { cookies } from "next/headers";
+import { getStorage } from "@/utils/localStorageManage";
+import { ACCESS_TOKEN } from "@/store/useTokenStore";
 
 export const api = axios.create({
   baseURL: "/api/v1",
@@ -8,11 +9,11 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    /* const beforeAccessToken = getStorage(ACCESS_TOKEN);
+    const beforeAccessToken = getStorage(ACCESS_TOKEN);
 
     if (beforeAccessToken) {
       config.headers.Authorization = `Bearer ${beforeAccessToken}`;
-    } */
+    }
     return config;
   },
   (error) => {
@@ -26,6 +27,19 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use((response: AxiosResponse) => {
-  return response;
-});
+api.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  async (error: AxiosError) => {
+    if (!(error instanceof AxiosError))
+      throw new Error("네트워크 통신 에러 발생");
+
+    const httpError = new HttpError(
+      error.response?.status,
+      error.response?.statusText
+    ).errorData;
+
+    throw httpError;
+  }
+);

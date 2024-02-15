@@ -6,7 +6,6 @@ import PageHeader from "../PageHeader";
 import DigiterraList from "./DigiterraList";
 import Selector, { SelectItemType } from "../common/Selector";
 
-import { api } from "@/services/httpClient";
 import axios from "axios";
 
 export default function Digiterra() {
