@@ -8,4 +8,5 @@ export const routes = {
   porkHub: "/porkHub",
   serviceCategory: "/service-category",
   serviceIntro: "/serviceIntro",
+  login: "/login",
 };

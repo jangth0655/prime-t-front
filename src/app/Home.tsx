@@ -12,14 +12,14 @@ export default function Home() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      router.push("/serviceIntro");
+      router.push("/login");
     }, 5000);
 
     return () => clearTimeout(timeoutId);
   }, [router]);
 
   const onPage = () => {
-    router.push("/serviceIntro");
+    router.push("/login");
   };
 
   return (
