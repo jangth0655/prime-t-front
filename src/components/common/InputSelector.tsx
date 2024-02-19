@@ -17,7 +17,7 @@ type Props = {
   activeBorderColor?: string;
 };
 
-export default function Selector({
+export default function InputSelector({
   list,
   onSelected,
   selectedItem,

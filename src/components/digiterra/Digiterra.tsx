@@ -4,9 +4,7 @@ import { useCallback, useState } from "react";
 
 import PageHeader from "../PageHeader";
 import DigiterraList from "./DigiterraList";
-import Selector, { SelectItemType } from "../common/Selector";
-
-import axios from "axios";
+import InputSelector, { SelectItemType } from "../common/InputSelector";
 
 export default function Digiterra() {
   const [categoryStatus, setCategoryStatus] = useState<StatusCategory>({
@@ -27,41 +25,18 @@ export default function Digiterra() {
     setSortedItem(status as SortCategory);
   }, []);
 
-  type LoginTest = {
-    access_token: string;
-    token_type: string;
-  };
-  const logintestbutton = async () => {
-    const response = await (
-      await axios.post<Promise<LoginTest>>(
-        "/api/v1/login",
-        {
-          username: "user@example.com",
-          password: "secret_password",
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-    ).data;
-
-    return response;
-  };
-
   return (
     <div>
       <PageHeader title="디지테라" />
       <div className="px-4 py-2 h-14 w-full mt-[7.25rem] flex items-center justify-center space-x-2 border-b-[1px] border-b-slate-S200">
-        <Selector
+        <InputSelector
           list={statusList}
           onSelected={onStatusCategory}
           selectedItem={categoryStatus}
           selectorBg="#2C3249"
           selectedColor="#12162A"
         />
-        <Selector
+        <InputSelector
           list={sortList}
           onSelected={onSortedCategory}
           selectedItem={sortedStatus}
@@ -69,9 +44,7 @@ export default function Digiterra() {
           selectedColor="#12162A"
         />
       </div>
-      <div className="p-4 border-2 rounded-md">
-        <button onClick={logintestbutton}>로그인 테스트버튼</button>
-      </div>
+
       <DigiterraList status={categoryStatus} />
     </div>
   );

@@ -1,8 +1,8 @@
-export const formatCurrency = (amount: number) => {
+export const formatCurrency = (amount: number, decimalPlaces = 6) => {
   const formattedAmount = new Intl.NumberFormat("ko-KR", {
     style: "decimal",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: decimalPlaces ?? 0,
+    maximumFractionDigits: decimalPlaces ?? 0,
   }).format(amount);
 
   return formattedAmount;

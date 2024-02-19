@@ -24,9 +24,6 @@ export default function TabCategory({
 }: Props) {
   return (
     <ul
-      style={{
-        paddingTop: paddingTop || "7.25rem",
-      }}
       className={
         isPorkHub === true
           ? "bg-slate-S900 border-b-[1px] border-b-slate-S600 flex"

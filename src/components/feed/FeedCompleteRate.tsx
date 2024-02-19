@@ -2,20 +2,37 @@ import { cls } from "@/utils/cls";
 
 type Props = {
   text: string;
-  isPorkHub?: boolean;
+  isDark?: boolean;
+  bgColor?: string;
+  textColor?: string;
+  size: "sm" | "md";
 };
 
-export default function FeedCompleteRate({ text, isPorkHub }: Props) {
+const styleMap = {
+  sm: "text-label leading-label",
+  md: "text-subtitle leading-subtitle",
+};
+
+export default function FeedCompleteRate({
+  text,
+  isDark,
+  bgColor,
+  textColor,
+  size,
+}: Props) {
   return (
-    <p
+    <div
+      style={{
+        backgroundColor: bgColor,
+        color: textColor,
+      }}
       className={cls(
-        isPorkHub
-          ? "text-h4 leading-h4 text-slate-S200 font-bold"
-          : "text-subtitle leading-subtitle text-primary-P100 font-bold",
+        bgColor ? "px-2 py-1 rounded-xl" : "",
+        isDark ? "" : "",
         ""
       )}
     >
-      {text}
-    </p>
+      <p className={cls(isDark ? "" : "", `${styleMap[size]}`)}>{text}</p>
+    </div>
   );
 }
