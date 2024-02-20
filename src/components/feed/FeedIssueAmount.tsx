@@ -4,7 +4,7 @@ type Props = {
   issueAmount: string;
   isPorkHub?: boolean;
   unit?: "DTA" | "LTC" | "%";
-  type: "sm" | "md";
+  size: "sm" | "md" | "lg";
   amountColor?: string;
   unitColor?: string;
   isBold?: boolean;
@@ -12,14 +12,15 @@ type Props = {
 
 const styleMap = {
   sm: "text-label leading-label",
-  md: "text-body leading-body",
+  md: "text-body-s leading-body-s",
+  lg: "text-body leading-body",
 };
 
-export default function DetailIssueAmount({
+export default function FeedIssueAmount({
   issueAmount,
   isPorkHub,
   unit,
-  type,
+  size,
   amountColor,
   unitColor,
   isBold,
@@ -28,7 +29,7 @@ export default function DetailIssueAmount({
     <p
       className={cls(
         isPorkHub ? "" : "",
-        `${styleMap[type]} flex items-center space-x-1`
+        `${styleMap[size]} flex items-center space-x-1`
       )}
     >
       <span

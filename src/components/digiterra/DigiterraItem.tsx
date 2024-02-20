@@ -7,13 +7,13 @@ import FeedTitle from "../feed/FeedTitle";
 import FeedCompleteRate from "../feed/FeedCompleteRate";
 import Divider from "../common/Divider";
 import FeedIssueUnitInfo from "../feed/FeedIssueUnitInfo";
-import FeedTokenQuantity from "../feed/FeedTokenQuantity";
 
 import { routes } from "@/routes";
 import { DigiterraType } from "./DigiterraList";
 import { formatCurrency } from "@/utils/formatNumber";
 import FeedLabel from "../feed/FeedLabel";
 import FeedPeriodWithRange from "../feed/FeedPeriodWithRange";
+import FeedIssueAmount from "../feed/FeedIssueAmount";
 
 type Props = {
   item: DigiterraType;
@@ -47,9 +47,10 @@ export default function DigiterraItem({ item }: Props) {
                   <FeedTitle text="판매 예정 상품 예시입니다." />
                 </div>
                 <FeedIssueUnitInfo unitInfo="총 발행 수량 (1LTC=2DTA)" />
-                <FeedTokenQuantity
+                <FeedIssueAmount
+                  size="md"
                   unit="DTA"
-                  quantity={formatCurrency(10000000000, 0)}
+                  issueAmount={formatCurrency(10000000000, 0)}
                 />
               </div>
 

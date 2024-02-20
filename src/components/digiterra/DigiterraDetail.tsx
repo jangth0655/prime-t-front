@@ -11,7 +11,7 @@ import DetailProductIntro from "../feed/detail/DetailProductIntro";
 import DetailProductNotice from "../feed/detail/DetailProductNotice";
 import FeedLabel from "../feed/FeedLabel";
 import FeedCompleteRate from "../feed/FeedCompleteRate";
-import DetailIssueAmount from "../feed/detail/DetailIssueAmount";
+import FeedIssueAmount from "../feed/FeedIssueAmount";
 
 import { formatDateYYYMMDD } from "@/utils/formatDate";
 import { formatCurrency } from "@/utils/formatNumber";
@@ -88,10 +88,10 @@ export default function DigiterraDetail({ detailId }: Props) {
           <div>
             <div className="flex justify-between items-center">
               <FeedLabel label="최소 구매 수량" size="md" textColor="#797D9E" />
-              <DetailIssueAmount
+              <FeedIssueAmount
                 issueAmount={formatCurrency(1)}
                 unit="LTC"
-                type="md"
+                size="lg"
                 amountColor="#000000"
                 isBold
               />
@@ -102,20 +102,20 @@ export default function DigiterraDetail({ detailId }: Props) {
           </div>
           <div className="flex justify-between items-center">
             <FeedLabel label="총 발행수량" size="md" textColor="#797D9E" />
-            <DetailIssueAmount
+            <FeedIssueAmount
               issueAmount={formatCurrency(10000000000)}
               unit="DTA"
-              type="md"
+              size="lg"
               amountColor="#000000"
               isBold
             />
           </div>
           <div className="flex justify-between items-center">
             <FeedLabel label="잔여 수량" size="md" textColor="#797D9E" />
-            <DetailIssueAmount
+            <FeedIssueAmount
               issueAmount={formatCurrency(10000000000)}
               unit="DTA"
-              type="md"
+              size="lg"
               amountColor="#000000"
               isBold
             />
