@@ -6,6 +6,7 @@ type Props = {
   bgColor?: string;
   textColor?: string;
   size: "sm" | "md";
+  fontWeightNumber?: number;
 };
 
 const styleMap = {
@@ -19,12 +20,14 @@ export default function FeedCompleteRate({
   bgColor,
   textColor,
   size,
+  fontWeightNumber,
 }: Props) {
   return (
     <div
       style={{
         backgroundColor: bgColor,
         color: textColor,
+        fontWeight: fontWeightNumber,
       }}
       className={cls(
         bgColor ? "px-2 py-1 rounded-xl" : "",
