@@ -10,10 +10,10 @@ type Props = {
   title: string;
   backUrl?: string;
   top?: string;
-  isPorkHub?: boolean;
+  isDark?: boolean;
 };
 
-export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
+export default function PageHeader({ title, backUrl, top, isDark }: Props) {
   const router = useRouter();
 
   const onBackPage = useCallback(() => {
@@ -30,7 +30,7 @@ export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
         top: top || "3.75rem",
       }}
       className={cls(
-        isPorkHub
+        isDark
           ? "bg-slate-S900 border-b-[1px] border-b-slate-S600"
           : "bg-white",
         "h-14 flex justify-center items-center fixed w-full z-20"
@@ -40,13 +40,11 @@ export default function PageHeader({ title, backUrl, top, isPorkHub }: Props) {
         onClick={onBackPage}
         className="absolute w-10 h-10 left-1 flex justify-center items-center"
       >
-        <LeftArrowIcon color={isPorkHub ? "#eef1ff" : "#000000"} />
+        <LeftArrowIcon color={isDark ? "#eef1ff" : "#000000"} />
       </button>
       <p
         className={cls(
-          isPorkHub
-            ? "text-slate-S200 font-regular"
-            : "text-black font-regular",
+          isDark ? "text-slate-S200 font-regular" : "text-black font-regular",
           "text-body leading-body"
         )}
       >

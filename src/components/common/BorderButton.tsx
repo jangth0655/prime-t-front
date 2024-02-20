@@ -6,6 +6,8 @@ import { ButtonHTMLAttributes } from "react";
 type Props = {
   isWhiteBg?: boolean;
   text: string;
+  width?: string;
+  height?: string;
   size: "L" | "M" | "S";
   onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
@@ -14,6 +16,8 @@ export default function BorderButton({
   size,
   text,
   isWhiteBg,
+  width,
+  height,
   onClick,
   ...props
 }: Props) {
@@ -30,6 +34,10 @@ export default function BorderButton({
     <button
       {...props}
       onClick={onClick}
+      style={{
+        width,
+        height,
+      }}
       className={cls(
         isDisabled
           ? "text-slate-S500 bg-slate-S600 border-slate-S500"

@@ -9,4 +9,5 @@ export const routes = {
   serviceCategory: "/service-category",
   serviceIntro: "/serviceIntro",
   login: "/login",
+  signup: "/signup",
 };
