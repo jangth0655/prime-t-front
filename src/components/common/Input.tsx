@@ -1,9 +1,9 @@
 import { cls } from "@/utils/cls";
 import { InputHTMLAttributes } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
-  register?: UseFormRegister<any>;
+  register?: UseFormRegisterReturn;
   inputTitle?: string;
   dataType?: string;
   maxLength?: number;
@@ -52,7 +52,7 @@ export default function Input({
           "mt-2 w-full border-[1px] border-solid border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
         )}
         autoComplete="off"
-        {...(register && (register(`${dataType}`), { required }))}
+        {...register}
       />
     </div>
   );
