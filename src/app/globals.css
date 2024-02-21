@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.placeholder-right::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  text-align: right;
+}
+.placeholder-right::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: right;
+}
+.placeholder-right:-ms-input-placeholder {
+  /* IE 10+ */
+  text-align: right;
+}
+.placeholder-right:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: right;
+}
