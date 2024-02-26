@@ -67,7 +67,7 @@ export default function Purchase() {
     <div className="pt-[7.25rem]">
       <PageHeader title="구매하기" />
       <div className="h-full">
-        <BottomToggleInfo title="상품 정보" contentHeight={208} isDefaultClose>
+        <BottomToggleInfo title="상품 정보" contentHeight={208} isDefaultOpen>
           <div className="px-4 py-6 flex justify-center items-center">
             <DigiterraItem item={digiterraList[0]} />
           </div>
@@ -76,7 +76,7 @@ export default function Purchase() {
       <Divider type="sm" />
 
       <div>
-        <BottomToggleInfo title="구매 정보" contentHeight={436} isDefaultClose>
+        <BottomToggleInfo title="구매 정보" contentHeight={436} isDefaultOpen>
           <PurchaseInfo
             onQuantityRatioRange={onQuantityRatioRange}
             onChangeQuantity={onChangeQuantity}
@@ -92,7 +92,7 @@ export default function Purchase() {
       <BottomToggleInfo
         title="결제 전 이용 약관"
         contentHeight={184}
-        isDefaultClose
+        isDefaultOpen
       >
         <PurchasePreTerm
           checked={isPrePurchaseTerm}
@@ -102,7 +102,7 @@ export default function Purchase() {
 
       <Divider type="sm" />
 
-      <BottomToggleInfo title="거래 규정" contentHeight={184} isDefaultClose>
+      <BottomToggleInfo title="거래 규정" contentHeight={184} isDefaultOpen>
         <PurchaseRuleTerm
           checked={isPurchaseRule}
           onCheck={onTogglePurchaseRule}

@@ -12,7 +12,7 @@ type Props = {
   isPorkHub?: boolean;
   styles?: string;
   contentHeight?: number;
-  isDefaultClose?: boolean;
+  isDefaultOpen?: boolean;
 };
 
 const toggleVariants: Variants = {
@@ -39,9 +39,9 @@ export default function BottomToggleInfo({
   isPorkHub,
   styles,
   contentHeight = 500,
-  isDefaultClose,
+  isDefaultOpen,
 }: Props) {
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false || isDefaultOpen);
 
   const onToggleActive = useCallback(() => {
     setIsActive((prev) => !prev);
