@@ -11,23 +11,24 @@ type Props = {
   children: React.ReactNode;
   isPorkHub?: boolean;
   styles?: string;
+  contentHeight?: number;
 };
 
 const toggleVariants: Variants = {
   initial: {
     opacity: 0,
-    y: "-50%",
     height: 0,
+    y: -100,
   },
-  animate: {
+  animate: (contentHeight: number) => ({
     opacity: 1,
-    y: "0%",
-    height: 100,
-  },
+    height: contentHeight || "100%",
+    y: 0,
+  }),
   exit: {
     opacity: 0,
-    y: "-50%",
     height: 0,
+    y: -100,
   },
 };
 
@@ -36,6 +37,7 @@ export default function BottomToggleInfo({
   children,
   isPorkHub,
   styles,
+  contentHeight,
 }: Props) {
   const [isActive, setIsActive] = useState(false);
 
@@ -48,7 +50,7 @@ export default function BottomToggleInfo({
       <div
         className={cls(
           isPorkHub ? "" : "",
-          "flex items-center justify-between h-14 border-b-[1px] border-b-slate-S200 pr-2 pl-4 "
+          "flex items-center justify-between h-14 border-b-[1px] border-b-slate-S200 pr-2 pl-4"
         )}
       >
         <p>{title}</p>
@@ -68,6 +70,7 @@ export default function BottomToggleInfo({
         <AnimatePresence>
           {isActive && (
             <motion.div
+              custom={contentHeight}
               variants={toggleVariants}
               initial="initial"
               animate="animate"
