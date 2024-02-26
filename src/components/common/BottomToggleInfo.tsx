@@ -12,14 +12,15 @@ type Props = {
   isPorkHub?: boolean;
   styles?: string;
   contentHeight?: number;
+  isDefaultClose?: boolean;
 };
 
 const toggleVariants: Variants = {
-  initial: {
+  initial: (contentHeight: number) => ({
     opacity: 0,
     height: 0,
     y: -100,
-  },
+  }),
   animate: (contentHeight: number) => ({
     opacity: 1,
     height: contentHeight || "100%",
@@ -37,9 +38,10 @@ export default function BottomToggleInfo({
   children,
   isPorkHub,
   styles,
-  contentHeight,
+  contentHeight = 500,
+  isDefaultClose,
 }: Props) {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   const onToggleActive = useCallback(() => {
     setIsActive((prev) => !prev);

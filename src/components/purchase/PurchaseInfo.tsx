@@ -1,15 +1,18 @@
 "use client";
 
 import { ChangeEvent } from "react";
+
 import Divider from "../common/Divider";
 import Input from "../common/Input";
 import SolidButton from "../common/SolidButton";
 import FeedInputRange from "../feed/FeedInputRange";
 import FeedIssueAmount from "../feed/FeedIssueAmount";
 import FeedLabel from "../feed/FeedLabel";
+
 import { formatCurrency } from "@/utils/formatNumber";
 
-const TOTAL_ISSUE = 10000000000.0;
+const TOTAL_ISSUE = 9000000.0;
+const DTA_ISSUE = 2;
 
 type Props = {
   onQuantityRatioRange: (values: number[]) => void;
@@ -27,7 +30,9 @@ export default function PurchaseInfo({
   quantityRatio,
 }: Props) {
   const stake = quantity ? (quantity / TOTAL_ISSUE) * 100 : 0;
-  console.log(stake);
+
+  const purchasedDTAIssue = quantity ? quantity * DTA_ISSUE : 0.0;
+
   return (
     <div className="py-6 px-4">
       <p className="text-label leading-label text-slate-S400 flex items-center justify-end mb-4">
@@ -62,7 +67,7 @@ export default function PurchaseInfo({
             <p className="text-slate-S500 text-body leading-body">=</p>
             <div className="w-[13.75rem] flex items-center justify-end">
               <FeedIssueAmount
-                issueAmount={formatCurrency(quantity || "")}
+                issueAmount={formatCurrency(purchasedDTAIssue || "")}
                 size="lg"
                 unit="LTC"
               />
@@ -108,10 +113,11 @@ export default function PurchaseInfo({
             />
           </div>
 
-          {/* 지분 = 총 발행 수량 ÷ 구매 수량 * 100 */}
           <div className="flex items-center justify-between">
             <FeedLabel label="지분" size="md" textColor="#797D9E" />
-            <p className="text-body leading-body text-slate-500">{stake} %</p>
+            <p className="text-body leading-body text-slate-500">
+              {stake.toFixed(2)} %
+            </p>
           </div>
         </div>
       </div>
