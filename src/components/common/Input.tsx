@@ -1,24 +1,31 @@
 import { cls } from "@/utils/cls";
 import { InputHTMLAttributes } from "react";
-import { FieldValues, UseFormRegister, ValidationRule } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
-  register: UseFormRegister<any>;
-  inputTitle: string;
-  dataType: string;
-  maxLength: number;
+  register?: UseFormRegisterReturn;
+  inputTitle?: string;
+  dataType?: string;
+  maxLength?: number;
   patternValue?: RegExp;
   patternMessage?: string;
-  inputType: string;
+  inputType?: string;
   padding?: string;
   errors?: Record<string, { message: string }> | undefined;
   textStyle?: string;
   htmlFor?: string;
+  required?: boolean;
+  inputPaddingRight?: number | string;
+  unit?: "LTC" | "%";
+  height?: number | string;
+  width?: number | string;
+  isTextRight?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input({
   register,
   inputTitle,
+  inputPaddingRight,
   dataType,
   patternValue,
   patternMessage,
@@ -28,46 +35,55 @@ export default function Input({
   htmlFor,
   errors,
   textStyle,
+  required,
+  height,
+  unit,
+  width,
+  isTextRight,
   ...props
 }: Props) {
   const isDisabled = props.disabled;
   return (
-    <div className={cls(padding ? padding : "pt-10", "w-full")}>
-      <label
-        htmlFor={htmlFor}
-        className={textStyle ? textStyle : "text-slate-S200"}
+    <div
+      style={{
+        width: width || "100%",
+        height,
+      }}
+    >
+      {inputTitle && (
+        <label
+          htmlFor={htmlFor}
+          className={textStyle || "text-slate-S200 mb-2"}
+        >
+          {inputTitle}
+        </label>
+      )}
+
+      <div
+        style={{
+          height: height || "2.5rem",
+        }}
+        className="relative"
       >
-        {inputTitle}
-      </label>
-      <input
-        {...props}
-        className={cls(
-          isDisabled ? "bg-slate-S600" : "bg-slate-S800",
-          "mt-2 w-full border-[1px] border-solid border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
+        <input
+          style={{
+            paddingRight: inputPaddingRight,
+          }}
+          {...props}
+          className={cls(
+            isDisabled ? "bg-slate-S600" : "bg-slate-S800",
+            isTextRight ? "placeholder-right text-right" : "",
+            "w-full border-[1px] border-slate-S500 h-full text-slate-S200 p-2 outline-none"
+          )}
+          autoComplete="off"
+          {...register}
+        />
+        {unit && (
+          <div className="absolute top-0 bottom-0 flex items-center text-white right-4">
+            <span>{unit}</span>
+          </div>
         )}
-        id={dataType}
-        type={inputType}
-        autoComplete="off"
-        {...(register(`${dataType}`), { required: true })}
-      />
+      </div>
     </div>
   );
-}
-
-{
-  /* <div className="pt-4 w-full">
-              <label className="text-slate-S200">이메일</label>
-              <input
-                className="bg-slate-S800 mt-2 w-full border-[1px] border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
-                autoComplete="off"
-                {...register("email", {
-                  required: true,
-                  pattern: {
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                    message: "잘못된 형식의 이메일입니다.",
-                  },
-                })}
-              />
-            </div> */
 }

@@ -74,6 +74,18 @@ export default function LoginForm() {
     }
   };
 
+  const onDisalbedEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      username === undefined &&
+      username === "" &&
+      password === "" &&
+      password === undefined
+    ) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+      }
+    }
+  };
   const onWithoutLogin = () => {
     router.push("/service-category");
   };
@@ -86,18 +98,21 @@ export default function LoginForm() {
     <div className="mx-4 h-full relative">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          register={register}
+          register={register("username")}
           inputTitle="ID (e-mail)"
           dataType="username"
           maxLength={80}
           inputType="text"
+          onKeyDown={onDisalbedEnterKey}
         />
         <Input
-          register={register}
+          register={register("password")}
           inputTitle="PW"
           dataType="password"
           maxLength={80}
           inputType="password"
+          type="password"
+          onKeyDown={onDisalbedEnterKey}
         />
         <div
           className={cls(
@@ -128,6 +143,7 @@ export default function LoginForm() {
               isPrimaryColor={!loginButtonDisabled}
               primaryColor={loginButtonDisabled ? "" : "#2d47db"}
               type="submit"
+              id="loginButton"
             />
           </div>
           <div className="mt-4">
