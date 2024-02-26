@@ -2,11 +2,12 @@ import { cls } from "@/utils/cls";
 
 type Props = {
   isPorkHub?: boolean;
-  type: "lg" | "md" | "sm";
+  type: "lg" | "md" | "sm" | "xs";
 };
 
 const styleMap = {
-  sm: "h-[0.0625rem]",
+  xs: "h-[0.0625rem]",
+  sm: "h-[0.5rem]",
   md: "h-[1rem]",
   lg: "h-[2rem]",
 };

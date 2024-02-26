@@ -44,7 +44,7 @@ export type DigiterraType = {
   image?: StaticImageData;
 };
 
-const digiterraList: DigiterraType[] = [
+export const digiterraList: DigiterraType[] = [
   {
     status: {
       key: "progress",

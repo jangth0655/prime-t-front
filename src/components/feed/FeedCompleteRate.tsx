@@ -5,11 +5,12 @@ type Props = {
   isDark?: boolean;
   bgColor?: string;
   textColor?: string;
-  size: "sm" | "md";
+  size: "sm" | "md" | "xs";
   fontWeightNumber?: number;
 };
 
 const styleMap = {
+  xs: "text-caption leading-caption",
   sm: "text-label leading-label",
   md: "text-subtitle leading-subtitle",
 };

@@ -18,6 +18,7 @@ import { formatCurrency } from "@/utils/formatNumber";
 import TempImage from "../../../public/assets/digiterra/temp_digit_detail.png";
 import TabCategory, { CategoryType } from "../common/TabCategory";
 import StartIcon from "@/icons/StarIcon";
+import { useRouter } from "next/navigation";
 
 type Props = {
   detailId: number;
@@ -33,6 +34,7 @@ export default function DigiterraDetail({ detailId }: Props) {
     name: "상품 소개",
     key: "intro",
   });
+  const router = useRouter();
 
   const formattedYesterday = formatDateYYYMMDD(
     dayjs().subtract(1, "day").toDate()
@@ -165,6 +167,7 @@ export default function DigiterraDetail({ detailId }: Props) {
           isPrimaryColor
           primaryColor="#5770F2"
           width="16rem"
+          onClick={() => router.push(`/purchase/${detailId}`)}
         />
       </div>
     </div>

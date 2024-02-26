@@ -22,7 +22,7 @@ type Props = {
 export default function DigiterraItem({ item }: Props) {
   return (
     <Link href={`${routes.digiterra}/${item.key}`}>
-      <li className="py-2 px-2 w-[20.5rem] border-[1px] border-slate-S200 rounded-lg">
+      <li className="py-2 px-2 w-[20.5rem] border-[1px] border-slate-S200 rounded-lg list-none">
         <div className="flex flex-col">
           <div className="flex h-full">
             {/* 이미지 */}
@@ -46,7 +46,10 @@ export default function DigiterraItem({ item }: Props) {
                 <div className="mb-1">
                   <FeedTitle text="판매 예정 상품 예시입니다." />
                 </div>
-                <FeedIssueUnitInfo unitInfo="총 발행 수량 (1LTC=2DTA)" />
+                <FeedIssueUnitInfo
+                  unitInfo="총 발행 수량 (1LTC=2DTA)"
+                  size="xs"
+                />
                 <FeedIssueAmount
                   size="md"
                   unit="DTA"
@@ -67,7 +70,7 @@ export default function DigiterraItem({ item }: Props) {
 
                     <FeedCompleteRate
                       text="(예상 수익률 000% )"
-                      size="sm"
+                      size="xs"
                       textColor="#5770F2"
                     />
                   </div>
@@ -79,15 +82,15 @@ export default function DigiterraItem({ item }: Props) {
           {/* 기간 */}
           <div>
             <div className="mt-2 mb-1">
-              <Divider type="sm" />
+              <Divider type="xs" />
             </div>
 
-            <ul className="flex items-center space-x-2">
+            <ul className="flex  items-center space-x-2">
               <li className="flex flex-col">
-                <div className="flex items-center space-x-1 ">
-                  <div>
+                <div className="space-x-1 flex items-center">
+                  <div className="flex items-center ">
                     <FeedLabel
-                      size="sm"
+                      size="xs"
                       label="판매 기간"
                       textColor="#797D9E"
                     />
@@ -95,7 +98,7 @@ export default function DigiterraItem({ item }: Props) {
                   {item.status.key === "progress" && (
                     <div className="flex items-center space-x-1">
                       <FeedLabel
-                        size="sm"
+                        size="xs"
                         label="(000일 남음)"
                         textColor="#5770F2"
                       />
@@ -111,8 +114,8 @@ export default function DigiterraItem({ item }: Props) {
               </li>
 
               <li className="flex flex-col">
-                <div className="flex items-center space-x-1 ">
-                  <FeedLabel size="sm" label="운영 기간" textColor="#797D9E" />
+                <div className="flex items-center space-x-1">
+                  <FeedLabel size="xs" label="운영 기간" textColor="#797D9E" />
                 </div>
                 <div>
                   <FeedPeriodWithRange
