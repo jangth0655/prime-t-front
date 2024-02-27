@@ -1,7 +1,7 @@
 import { cls } from "@/utils/cls";
 
 type Props = {
-  text: string;
+  rate: string | number;
   isDark?: boolean;
   bgColor?: string;
   textColor?: string;
@@ -16,7 +16,7 @@ const styleMap = {
 };
 
 export default function FeedCompleteRate({
-  text,
+  rate,
   isDark,
   bgColor,
   textColor,
@@ -36,7 +36,7 @@ export default function FeedCompleteRate({
         ""
       )}
     >
-      <p className={cls(isDark ? "" : "", `${styleMap[size]}`)}>{text}</p>
+      <p className={cls(isDark ? "" : "", `${styleMap[size]}`)}>{rate}</p>
     </div>
   );
 }

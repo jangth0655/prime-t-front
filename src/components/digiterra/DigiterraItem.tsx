@@ -9,29 +9,30 @@ import Divider from "../common/Divider";
 import FeedIssueUnitInfo from "../feed/FeedIssueUnitInfo";
 
 import { routes } from "@/routes";
-import { DigiterraType } from "./DigiterraList";
+import DigitterTestImage from "../../../public/assets/digiterra/digitera_thumbnail_1.png";
 import { formatCurrency } from "@/utils/formatNumber";
 import FeedLabel from "../feed/FeedLabel";
 import FeedPeriodWithRange from "../feed/FeedPeriodWithRange";
 import FeedIssueAmount from "../feed/FeedIssueAmount";
+import { Product } from "@/services/products";
 
 type Props = {
-  item: DigiterraType;
+  product: Product;
 };
 
-export default function DigiterraItem({ item }: Props) {
+export default function DigiterraItem({ product }: Props) {
   return (
-    <Link href={`${routes.digiterra}/${item.key}`}>
+    <Link href={`${routes.digiterra}/${product?.id}`}>
       <li className="py-2 px-2 w-[20.5rem] border-[1px] border-slate-S200 rounded-lg list-none">
         <div className="flex flex-col">
           <div className="flex h-full">
             {/* 이미지 */}
             <div className="mr-2 min-w-[5.75rem]">
-              {item.image ? (
+              {DigitterTestImage ? (
                 <Image
                   width={112}
                   height={112}
-                  src={item.image}
+                  src={DigitterTestImage}
                   alt=""
                   className="object-cover rounded-lg"
                 />
@@ -53,23 +54,23 @@ export default function DigiterraItem({ item }: Props) {
                 <FeedIssueAmount
                   size="md"
                   unit="DTA"
-                  issueAmount={formatCurrency(10000000000, 0)}
+                  issueAmount={formatCurrency(product?.issue_qty, 0)}
                 />
               </div>
 
               {/* 판매 예정은 x */}
               <div>
-                {item.status.key !== "upcoming" && (
+                {product.prd_progress_status !== "WAITING" && (
                   <div className="flex justify-between items-center">
                     <FeedCompleteRate
-                      text={item.anyText}
+                      rate={`${product.achv_rate}% 달성`}
                       size="md"
                       textColor="#5770F2"
                       fontWeightNumber={700}
                     />
 
                     <FeedCompleteRate
-                      text="(예상 수익률 000% )"
+                      rate={`(예상 수익률${product.exp_return_rate}%)`}
                       size="xs"
                       textColor="#5770F2"
                     />
@@ -95,7 +96,7 @@ export default function DigiterraItem({ item }: Props) {
                       textColor="#797D9E"
                     />
                   </div>
-                  {item.status.key === "progress" && (
+                  {product.prd_progress_status === "ENABLED" && (
                     <div className="flex items-center space-x-1">
                       <FeedLabel
                         size="xs"
