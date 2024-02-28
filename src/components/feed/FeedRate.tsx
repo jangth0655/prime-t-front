@@ -15,7 +15,7 @@ const styleMap = {
   md: "text-subtitle leading-subtitle",
 };
 
-export default function FeedCompleteRate({
+export default function FeedRate({
   rate,
   isDark,
   bgColor,

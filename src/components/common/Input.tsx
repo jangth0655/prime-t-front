@@ -38,7 +38,7 @@ export default function Input({
       style={{
         width: width || "100%",
         height,
-        margin: margin,
+        margin,
       }}
     >
       {label && (

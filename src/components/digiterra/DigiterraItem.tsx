@@ -4,16 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 import FeedTitle from "../feed/FeedTitle";
-import FeedCompleteRate from "../feed/FeedCompleteRate";
+import FeedRate from "../feed/FeedRate";
 import Divider from "../common/Divider";
 import FeedIssueUnitInfo from "../feed/FeedIssueUnitInfo";
-
-import { routes } from "@/routes";
-import DigitterTestImage from "../../../public/assets/digiterra/digitera_thumbnail_1.png";
-import { formatCurrency } from "@/utils/formatNumber";
+import FeedIssueAmount from "../feed/FeedIssueAmount";
 import FeedLabel from "../feed/FeedLabel";
 import FeedPeriodWithRange from "../feed/FeedPeriodWithRange";
-import FeedIssueAmount from "../feed/FeedIssueAmount";
+
+import DigitterTestImage from "../../../public/assets/digiterra/digitera_thumbnail_1.png";
+import { routes } from "@/routes";
+import { formatCurrency } from "@/utils/formatNumber";
 import { Product } from "@/services/products";
 
 type Props = {
@@ -62,14 +62,14 @@ export default function DigiterraItem({ product }: Props) {
               <div>
                 {product.prd_progress_status !== "WAITING" && (
                   <div className="flex justify-between items-center">
-                    <FeedCompleteRate
+                    <FeedRate
                       rate={`${product.achv_rate}% 달성`}
                       size="md"
                       textColor="#5770F2"
                       fontWeightNumber={700}
                     />
 
-                    <FeedCompleteRate
+                    <FeedRate
                       rate={`(예상 수익률${product.exp_return_rate}%)`}
                       size="xs"
                       textColor="#5770F2"

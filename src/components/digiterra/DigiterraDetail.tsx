@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
 
@@ -10,15 +11,14 @@ import SolidButton from "../common/SolidButton";
 import DetailProductIntro from "../feed/detail/DetailProductIntro";
 import DetailProductNotice from "../feed/detail/DetailProductNotice";
 import FeedLabel from "../feed/FeedLabel";
-import FeedCompleteRate from "../feed/FeedCompleteRate";
+import FeedRate from "../feed/FeedRate";
 import FeedIssueAmount from "../feed/FeedIssueAmount";
 
 import { formatDateYYYMMDD } from "@/utils/formatDate";
 import { formatCurrency } from "@/utils/formatNumber";
 import TempImage from "../../../public/assets/digiterra/temp_digit_detail.png";
 import TabCategory, { CategoryType } from "../common/TabCategory";
-import StartIcon from "@/icons/StarIcon";
-import { useRouter } from "next/navigation";
+import StarIcon from "@/icons/StarIcon";
 
 type Props = {
   detailId: number;
@@ -56,8 +56,8 @@ export default function DigiterraDetail({ detailId }: Props) {
             isPrimaryColor
             primaryColor="#5770F2"
           />
-          <FeedCompleteRate
-            text="0000% 달성"
+          <FeedRate
+            rate="0000% 달성"
             bgColor="#fff"
             textColor="#5770F2"
             size="sm"
@@ -158,7 +158,7 @@ export default function DigiterraDetail({ detailId }: Props) {
           type="button"
           className="flex flex-col justify-center items-center"
         >
-          <StartIcon />
+          <StarIcon />
           <p>0</p>
         </button>
         <SolidButton
