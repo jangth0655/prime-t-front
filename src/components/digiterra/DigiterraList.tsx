@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { StaticImageData } from "next/image";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteScroll } from "../hooks/useScrollPosition";
 
 import DigiterraItem from "./DigiterraItem";
 
 import { StatusCategory } from "./Digiterra";
 import { QUERY_KEY } from "@/queryKey";
 import { getProductAll } from "@/services/products";
-import { useInfiniteScroll } from "../hooks/useScrollPosition";
 
 type Props = {
   status: StatusCategory;
@@ -80,12 +79,3 @@ export default function DigiterraList({ status }: Props) {
     </div>
   );
 }
-
-export type DigiterraType = {
-  status: StatusCategory;
-  description: string;
-  entity: string;
-  key: number;
-  anyText: string;
-  image?: StaticImageData;
-};

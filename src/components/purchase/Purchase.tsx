@@ -6,7 +6,6 @@ import Divider from "../common/Divider";
 import PurchaseInfo from "./PurchaseInfo";
 
 import DigiterraItem from "../digiterra/DigiterraItem";
-import { digiterraList } from "../digiterra/DigiterraList";
 import { ChangeEvent, useState } from "react";
 import PurchasePreTerm from "./PurchasePreTerm";
 import PurchaseRuleTerm from "./PurchaseRuleTerm";
@@ -29,8 +28,8 @@ export default function Purchase() {
   };
 
   const onQuantityRatioInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const re = /^[0-9]*$/;
-    if (re.test(e.target.value) && Number(e.target.value) <= 100) {
+    const regular = /^[0-9]*$/;
+    if (regular.test(e.target.value) && Number(e.target.value) <= 100) {
       setQuantityRatio(Number(e.target.value));
       setQuantity((Number(e.target.value) / 100) * ASSET_QUANTITY);
     } else {
@@ -69,7 +68,7 @@ export default function Purchase() {
       <div className="h-full">
         <BottomToggleInfo title="상품 정보" contentHeight={208} isDefaultOpen>
           <div className="px-4 py-6 flex justify-center items-center">
-            <DigiterraItem item={digiterraList[0]} />
+            {/* <DigiterraItem item={digiterraList[0]} /> */}
           </div>
         </BottomToggleInfo>
       </div>
