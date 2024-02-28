@@ -11,9 +11,16 @@ type Props = {
   backUrl?: string;
   top?: string;
   isDark?: boolean;
+  step?: number;
 };
 
-export default function PageHeader({ title, backUrl, top, isDark }: Props) {
+export default function PageHeader({
+  title,
+  backUrl,
+  top,
+  isDark,
+  step,
+}: Props) {
   const router = useRouter();
 
   const onBackPage = useCallback(() => {
@@ -38,7 +45,11 @@ export default function PageHeader({ title, backUrl, top, isDark }: Props) {
     >
       <button
         onClick={onBackPage}
-        className="absolute w-10 h-10 left-1 flex justify-center items-center"
+        className={
+          step === 4
+            ? "hidden"
+            : "absolute w-10 h-10 left-1 flex justify-center items-center"
+        }
       >
         <LeftArrowIcon color={isDark ? "#eef1ff" : "#000000"} />
       </button>

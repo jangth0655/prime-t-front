@@ -3,12 +3,13 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import SolidButton from "../common/SolidButton";
 import Input from "../common/Input";
-import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/navigation";
 import BorderButton from "../common/BorderButton";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { cls } from "@/utils/cls";
-import { getStorage } from "@/utils/localStorageManage";
+import { setStorage } from "@/utils/localStorageManage";
+import { ACCESS_TOKEN } from "@/store/useTokenStore";
+import loginAPI from "@/services/auth/auth";
 
 type FormValues = {
   password: string;
@@ -26,66 +27,23 @@ export default function LoginForm() {
 
   const username = watch("username");
   const password = watch("password");
-  const [loginButtonDisabled, setLoginButtonDisabled] = useState(true);
   const verification = useRef(true);
-  const isLogin = useRef(false);
-
-  useEffect(() => {
-    if (
-      username !== undefined &&
-      username !== "" &&
-      password !== "" &&
-      password !== undefined
-    ) {
-      setLoginButtonDisabled(false);
-    } else {
-      setLoginButtonDisabled(true);
-    }
-  }, [username, password]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (username === "" || password === "") {
+      return;
+    }
     try {
-      const response = await axios.post(
-        "/api/v1/login",
-        {
-          username: data.username,
-          password: data.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await loginAPI(data.username, data.password);
+      setStorage({ name: ACCESS_TOKEN, value: response.access_token });
 
-      // console.log(response.data);
-      // console.log("로그인 성공");
-      getStorage(response.data.access_token);
-
-      isLogin.current = true;
+      router.push("/service-category");
     } catch (error) {
       //아래 코드는 확인 후 문제 없을 시 지울 것
-      console.error(error);
       verification.current = false;
     }
-
-    if (isLogin.current) {
-      router.push("/service-category");
-    }
   };
 
-  const onDisalbedEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (
-      username === undefined &&
-      username === "" &&
-      password === "" &&
-      password === undefined
-    ) {
-      if (e.key === "Enter") {
-        e.preventDefault();
-      }
-    }
-  };
   const onWithoutLogin = () => {
     router.push("/service-category");
   };
@@ -99,20 +57,15 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           register={register("username")}
-          inputTitle="ID (e-mail)"
-          dataType="username"
-          maxLength={80}
-          inputType="text"
-          onKeyDown={onDisalbedEnterKey}
+          label="ID (e-mail)"
+          labelStyle="mb-2 pt-10"
+          type="text"
         />
         <Input
           register={register("password")}
-          inputTitle="PW"
-          dataType="password"
-          maxLength={80}
-          inputType="password"
+          label="PW"
+          labelStyle="mb-2 pt-10"
           type="password"
-          onKeyDown={onDisalbedEnterKey}
         />
         <div
           className={cls(
@@ -137,11 +90,11 @@ export default function LoginForm() {
           </div>
           <div className="mt-4">
             <SolidButton
-              disabled={loginButtonDisabled}
+              disabled={!username || !password}
               text="로그인"
               size="XL"
-              isPrimaryColor={!loginButtonDisabled}
-              primaryColor={loginButtonDisabled ? "" : "#2d47db"}
+              isPrimaryColor={!!username || !!password}
+              primaryColor={!username || !password ? "" : "#2d47db"}
               type="submit"
               id="loginButton"
             />

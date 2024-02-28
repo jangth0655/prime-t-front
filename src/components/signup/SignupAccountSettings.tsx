@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import Input from "../common/Input";
 import SolidButton from "../common/SolidButton";
-import { useEffect, useRef, useState } from "react";
 import { cls } from "@/utils/cls";
-import TestReactHookForm from "./TestReactHookForm";
+import { useState } from "react";
+import axios from "axios";
+import { useSignupEmail, useSignupPassword } from "@/store/useSignupStore";
 
 type Props = {
   nextStep: () => void;
@@ -16,41 +17,51 @@ type FormValues = {
   number: number;
 };
 export default function SignupAccountSettings({ nextStep }: Props) {
+  const { setEmailState } = useSignupEmail();
+  const { setPasswordState } = useSignupPassword();
   const {
     register,
     watch,
     formState: { errors },
   } = useForm<FormValues>({ mode: "onChange" });
-
   const password = watch("password");
   const passwordConfirm = watch("passwordConfirm");
-  const [passwordMatch, setPasswordMatch] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-
-  useEffect(() => {
-    if (
-      passwordConfirm &&
-      passwordConfirm !== "" &&
-      password !== passwordConfirm
-    ) {
-      setPasswordMatch("비밀번호가 일치하지 않습니다.");
-    } else {
-      if (
-        passwordConfirm !== "" &&
-        passwordConfirm !== undefined &&
-        password === passwordConfirm
-      ) {
-        setPasswordMatch("비밀번호가 동일합니다.");
+  const auth = watch("auth");
+  const email = watch("email");
+  const [emailConfirm, setEmailConfirm] = useState(false);
+  const [emailTransmission, setEmailTransmission] = useState(false);
+  const [emailNotAvailable, setEmailNotAvailable] = useState(false);
+  const onEmailDuplicationCheck = () => {
+    if (!errors.email && email) {
+      if (emailConfirm) {
+        setEmailTransmission(true);
       } else {
-        setPasswordMatch("");
+        axios
+          .post(`api/v1/users/email/${email}`)
+          .then((res) => {
+            setEmailConfirm(true);
+            setEmailState(email);
+          })
+          .catch((err) => {
+            setEmailNotAvailable(true);
+          });
       }
     }
-  }, [password, passwordConfirm]);
+  };
+  const onEmailChange = (e: any) => {
+    setEmailConfirm(false);
+    setEmailTransmission(false);
+    setEmailNotAvailable(false);
+  };
+  const onEmailAuthCheck = () => {};
 
-  const confirm = () => {
+  const onConfirm = () => {
     // nextStep으로 넘어가기 위해서는
     // 이메일 형식이 맞고 , 이메일 인증에 성공하고 , 비밀번호 형식이 맞으면 zustand 에 저장 후 nextstep 실행
-    nextStep();
+    if (emailConfirm && password === passwordConfirm) {
+      setPasswordState(password);
+      nextStep();
+    }
   };
   return (
     <div className="pt-4 relative h-full">
@@ -63,38 +74,57 @@ export default function SignupAccountSettings({ nextStep }: Props) {
         <div>
           <div className="flex items-end">
             <div className="pt-4 w-full">
-              <label className="text-slate-S300">이메일</label>
-              <input
+              <Input
+                label="이메일"
+                labelStyle="mb-2"
                 type="text"
-                className="bg-slate-S800 mt-2 w-full border-[1px] border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
-                autoComplete="off"
-                {...register("email", {
-                  required: true,
-                  pattern:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                register={register("email", {
+                  onChange: onEmailChange,
+                  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                 })}
               />
             </div>
 
             <div className="ml-2">
               <SolidButton
-                text="전송"
-                size="S"
+                text={
+                  errors.email || !email
+                    ? "중복확인"
+                    : emailTransmission
+                    ? "재전송"
+                    : emailConfirm
+                    ? "전송"
+                    : "중복확인"
+                }
+                size="F"
                 isColorSlate
                 type="button"
                 width="5rem"
                 height="2.5rem"
+                onClick={onEmailDuplicationCheck}
               />
             </div>
           </div>
 
           <div
             className={cls(
-              errors.email ? "visible" : "invisible",
-              "mt-2 text-system-S200 text-label leading-subtitle"
+              errors.email
+                ? "visible text-system-S200"
+                : emailConfirm
+                ? "visible text-system-S600"
+                : emailNotAvailable
+                ? "visible text-system-S200"
+                : "invisible",
+              "mt-2  text-label leading-subtitle"
             )}
           >
-            잘못된 형식의 이메일입니다.
+            {errors.email
+              ? "잘못된 형식의 이메일입니다."
+              : email && emailConfirm
+              ? "사용 가능한 이메일입니다."
+              : emailNotAvailable
+              ? "사용 중인 이메일입니다."
+              : ""}
           </div>
         </div>
 
@@ -102,21 +132,21 @@ export default function SignupAccountSettings({ nextStep }: Props) {
         <div>
           <div className="flex items-end">
             <div className="pt-4 w-full">
-              <label className="text-slate-S300">인증번호</label>
-              <input
-                disabled
+              <Input
+                label="인증번호"
                 type="number"
-                className="bg-slate-S800 mt-2 w-full border-[1px] border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
-                autoComplete="off"
-                {...register("auth", {
-                  required: true,
-                  validate: (value) => value.length <= 6,
-                })}
-                onInput={(e) => {
-                  if (e.currentTarget.value.length > 6) {
-                    e.currentTarget.value = e.currentTarget.value.slice(0, 6);
-                  }
-                }}
+                disabled={!emailTransmission}
+                labelStyle="mb-2"
+                maxLength={6}
+                register={register("auth", { validate: (v) => v.length <= 6 })}
+                onInput={(e) =>
+                  e.currentTarget.value.length > 6
+                    ? (e.currentTarget.value = e.currentTarget.value.slice(
+                        0,
+                        6
+                      ))
+                    : null
+                }
               />
             </div>
             <div className="ml-2">
@@ -125,13 +155,14 @@ export default function SignupAccountSettings({ nextStep }: Props) {
                 size="S"
                 isColorSlate
                 type="button"
+                onClick={onEmailAuthCheck}
                 width="5rem"
                 height="2.5rem"
-                disabled
+                disabled={!auth || auth.length < 6}
               />
             </div>
           </div>
-          <div className="mt-2 text-system-S200 text-label leading-subtitle">
+          <div className="invisible mt-2 text-system-S200 text-label leading-subtitle">
             잘못된 인증번호입니다.
           </div>
         </div>
@@ -140,13 +171,11 @@ export default function SignupAccountSettings({ nextStep }: Props) {
         <div>
           <div className="flex items-end">
             <div className="pt-4 w-full">
-              <label className="text-slate-S300">비밀번호</label>
-              <input
-                type="password"
-                className="bg-slate-S800 mt-2 w-full border-[1px] border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
-                autoComplete="off"
-                {...register("password", {
-                  required: true,
+              <Input
+                label="비밀번호"
+                labelStyle="mb-2"
+                type="text"
+                register={register("password", {
                   pattern:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/,
                 })}
@@ -155,11 +184,9 @@ export default function SignupAccountSettings({ nextStep }: Props) {
           </div>
           <div
             className={cls(
-              password !== undefined
-                ? errors.password
-                  ? "text-system-S200"
-                  : "text-system-S600"
-                : "text-system-S200",
+              !password || errors.password
+                ? "text-system-S200"
+                : "text-system-S600",
               "mt-2 text-label  font-regular leading-label"
             )}
           >
@@ -171,16 +198,11 @@ export default function SignupAccountSettings({ nextStep }: Props) {
         <div>
           <div className="flex items-end">
             <div className="pt-4 w-full">
-              <label className="text-slate-S300">비밀번호 확인</label>
-              <input
-                type="password"
-                className="bg-slate-S800 mt-2 w-full border-[1px] border-slate-S500 h-10 text-slate-S200 p-2 outline-none"
-                autoComplete="off"
-                {...register("passwordConfirm", {
-                  required: true,
-                  pattern:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/,
-                })}
+              <Input
+                label="비밀번호 확인"
+                labelStyle="mb-2"
+                type="text"
+                register={register("passwordConfirm")}
               />
             </div>
           </div>
@@ -192,18 +214,44 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               "mt-2 text-label leading-subtitle"
             )}
           >
-            {passwordMatch}
+            {!passwordConfirm
+              ? ""
+              : password === passwordConfirm
+              ? "비밀번호가 동일합니다."
+              : "비밀번호가 일치하지 않습니다."}
           </div>
         </div>
 
         <div className="absolute bottom-6 w-full">
+          {/* 다음 버튼은 disabled 되어있고 인증이 확인 && 비밀번호, 비밀번호 확인 일치 시 다음 버튼 활성화 할 것  */}
           <SolidButton
             text="다음"
             size="XL"
-            isPrimaryColor
-            primaryColor="#2d47db"
+            isPrimaryColor={
+              !!email &&
+              errors.password === undefined &&
+              !!password &&
+              !!passwordConfirm &&
+              password === passwordConfirm
+            }
+            primaryColor={
+              !email &&
+              errors.password !== undefined &&
+              !password &&
+              !passwordConfirm &&
+              password !== passwordConfirm
+                ? ""
+                : "#2d47db"
+            }
             type="button"
-            onClick={confirm}
+            disabled={
+              !email ||
+              errors.password !== undefined ||
+              !password ||
+              !passwordConfirm ||
+              password !== passwordConfirm
+            }
+            onClick={onConfirm}
           />
         </div>
       </form>

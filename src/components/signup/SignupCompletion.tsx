@@ -1,0 +1,45 @@
+import BorderButton from "../common/BorderButton";
+import SolidButton from "../common/SolidButton";
+import { useRouter } from "next/navigation";
+
+type Props = {
+  nextStep: () => void;
+};
+
+export default function SignupCompletion({ nextStep }: Props) {
+  const router = useRouter();
+  const onRouterPushMain = () => {
+    router.push("/service-category");
+  };
+  const onRouterPushLogin = () => {
+    router.push("/login");
+  };
+  return (
+    <div className="flex flex-wrap justify-center pt-[11.375rem]">
+      <div className="flex justify-center text-slate-S200 w-full text-h4 leading-h4 font-bold">
+        회원가입이 완료되었습니다.
+      </div>
+      <div className="flex mt-20 justify-between w-full">
+        <BorderButton
+          text={"메인 화면"}
+          size={"L"}
+          width="9.75rem"
+          height="3.5rem"
+          type="button"
+          onClick={onRouterPushMain}
+        />
+        <SolidButton
+          text="로그인"
+          size="F"
+          width="9.75rem"
+          height="3.5rem"
+          primaryColor="#2d47db"
+          isColorSlate
+          isPrimaryColor
+          type="button"
+          onClick={onRouterPushLogin}
+        />
+      </div>
+    </div>
+  );
+}
