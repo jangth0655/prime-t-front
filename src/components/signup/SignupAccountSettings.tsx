@@ -3,8 +3,8 @@ import Input from "../common/Input";
 import SolidButton from "../common/SolidButton";
 import { cls } from "@/utils/cls";
 import { useState } from "react";
-import axios from "axios";
 import { useSignupEmail, useSignupPassword } from "@/store/useSignupStore";
+import { signupEmailAPI } from "@/services/auth/auth";
 
 type Props = {
   nextStep: () => void;
@@ -31,33 +31,31 @@ export default function SignupAccountSettings({ nextStep }: Props) {
   const [emailConfirm, setEmailConfirm] = useState(false);
   const [emailTransmission, setEmailTransmission] = useState(false);
   const [emailNotAvailable, setEmailNotAvailable] = useState(false);
-  const onEmailDuplicationCheck = () => {
-    if (!errors.email && email) {
-      if (emailConfirm) {
-        setEmailTransmission(true);
-      } else {
-        axios
-          .post(`api/v1/users/email/${email}`)
-          .then((res) => {
-            setEmailConfirm(true);
-            setEmailState(email);
-          })
-          .catch((err) => {
-            setEmailNotAvailable(true);
-          });
+  const onEmailDuplicationCheck = async () => {
+    if (errors.email || !email) return;
+
+    if (emailConfirm) {
+      setEmailTransmission(true);
+    } else {
+      try {
+        await signupEmailAPI(email);
+        setEmailConfirm(true);
+        setEmailState(email);
+      } catch (error) {
+        setEmailNotAvailable(true);
       }
     }
   };
-  const onEmailChange = (e: any) => {
+  const onEmailChange = () => {
     setEmailConfirm(false);
     setEmailTransmission(false);
     setEmailNotAvailable(false);
   };
-  const onEmailAuthCheck = () => {};
+  const onEmailAuthCheck = () => {
+    //이메일 인증번호 확인
+  };
 
   const onConfirm = () => {
-    // nextStep으로 넘어가기 위해서는
-    // 이메일 형식이 맞고 , 이메일 인증에 성공하고 , 비밀번호 형식이 맞으면 zustand 에 저장 후 nextstep 실행
     if (emailConfirm && password === passwordConfirm) {
       setPasswordState(password);
       nextStep();
@@ -174,7 +172,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               <Input
                 label="비밀번호"
                 labelStyle="mb-2"
-                type="text"
+                type="password"
                 register={register("password", {
                   pattern:
                     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{10,}$/,
@@ -201,7 +199,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               <Input
                 label="비밀번호 확인"
                 labelStyle="mb-2"
-                type="text"
+                type="password"
                 register={register("passwordConfirm")}
               />
             </div>
@@ -223,30 +221,29 @@ export default function SignupAccountSettings({ nextStep }: Props) {
         </div>
 
         <div className="absolute bottom-6 w-full">
-          {/* 다음 버튼은 disabled 되어있고 인증이 확인 && 비밀번호, 비밀번호 확인 일치 시 다음 버튼 활성화 할 것  */}
           <SolidButton
             text="다음"
             size="XL"
             isPrimaryColor={
               !!email &&
-              errors.password === undefined &&
+              !errors.email &&
               !!password &&
               !!passwordConfirm &&
               password === passwordConfirm
             }
             primaryColor={
-              !email &&
-              errors.password !== undefined &&
-              !password &&
-              !passwordConfirm &&
-              password !== passwordConfirm
-                ? ""
-                : "#2d47db"
+              email ||
+              !errors.password ||
+              password ||
+              passwordConfirm ||
+              password === passwordConfirm
+                ? "#2d47db"
+                : ""
             }
             type="button"
             disabled={
               !email ||
-              errors.password !== undefined ||
+              !!errors.password ||
               !password ||
               !passwordConfirm ||
               password !== passwordConfirm

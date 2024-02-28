@@ -9,7 +9,7 @@ import { useRef } from "react";
 import { cls } from "@/utils/cls";
 import { setStorage } from "@/utils/localStorageManage";
 import { ACCESS_TOKEN } from "@/store/useTokenStore";
-import loginAPI from "@/services/auth/auth";
+import { loginAPI } from "@/services/auth/auth";
 
 type FormValues = {
   password: string;
