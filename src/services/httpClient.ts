@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import HttpError from "./httpError";
-import { getStorage } from "@/utils/localStorageManage";
+import { getStorage } from "@/utils/sessionStorageManage";
 import { ACCESS_TOKEN } from "@/store/useTokenStore";
 
 export const api = axios.create({
@@ -10,7 +10,6 @@ export const api = axios.create({
 api.interceptors.request.use(
   async (config) => {
     const beforeAccessToken = getStorage(ACCESS_TOKEN);
-
     if (beforeAccessToken) {
       config.headers.Authorization = `Bearer ${beforeAccessToken}`;
     }
@@ -39,6 +38,8 @@ api.interceptors.response.use(
       error.response?.status,
       error.response?.statusText
     ).errorData;
+
+    //console.log("http client res httpError ", httpError.statusCode);
 
     throw httpError;
   }

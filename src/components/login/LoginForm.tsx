@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import BorderButton from "../common/BorderButton";
 import { useRef } from "react";
 import { cls } from "@/utils/cls";
-import { setStorage } from "@/utils/localStorageManage";
+import { setStorage } from "@/utils/sessionStorageManage";
 import { ACCESS_TOKEN } from "@/store/useTokenStore";
 import { loginAPI } from "@/services/auth/auth";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence, Variants } from "framer-motion";
@@ -9,6 +9,7 @@ import HamburgerMenuIcon from "../icons/hamburgerMenuIcon.svg";
 import CloseIcon from "@/icons/CloseIcon";
 import LogoWhite from "@/icons/LogoWhite";
 import { routes } from "@/routes";
+import { api } from "@/services/httpClient";
 
 const modalVariants: Variants = {
   initial: {
@@ -25,6 +26,15 @@ const modalVariants: Variants = {
 export default function Navbar() {
   const pathName = usePathname();
   const [isActive, setIsActive] = useState(false);
+
+  const getUserInfo = async () => {
+    const response = await (await api.get("/users/me")).data;
+    return response;
+  };
+
+  useEffect(() => {
+    getUserInfo().then((res) => console.log("user info ", res));
+  }, []);
 
   const openNavModal = useCallback(() => {
     setIsActive(true);
@@ -128,3 +138,6 @@ export type NavItem = {
 
 type NavKey = "home" | "market" | "myWallet" | "cs" | "myPage";
 type NavPageName = "홈" | "마켓" | "마이월렛" | "고객센터" | "마이페이지";
+
+//abcdefg@gmail.com
+//Aabcdef1234@
