@@ -10,6 +10,7 @@ import {
 } from "@/store/useSignupStore";
 import { cls } from "@/utils/cls";
 import axios from "axios";
+import { signupAPI, signupPhoneAPI } from "@/services/auth/auth";
 
 type Props = {
   nextStep: () => void;
@@ -67,47 +68,29 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
     },
     []
   );
-  const onPhoneDuplicationCheck = () => {
-    if (phone) {
-      if (phoneConfirm) {
-        setPhoneTransmission(true);
-      } else {
-        axios
-          .post(`api/v1/users/phone/${internationalNumber.key}${phone}`)
-          .then((res) => {
-            setPhoneConfirm(true);
-            setPhoneState(internationalNumber.key + phone);
-            console.log(res);
-          })
-          .catch((err) => setPhoneConfirm(false));
+  const onPhoneDuplicationCheck = async () => {
+    if (phone && !phoneConfirm) {
+      try {
+        await signupPhoneAPI({ phone, internationalNumber });
+        setPhoneConfirm(true);
+        setPhoneState(internationalNumber.key + phone);
+      } catch {
+        setPhoneConfirm(false);
       }
+    } else if (phone) {
+      setPhoneTransmission(true);
     }
   };
   const onPhoneChange = () => {
     setPhoneConfirm(false);
     setPhoneTransmission(false);
   };
-  const onConfirm = () => {
-    console.log(phoneConfirm);
+  const onConfirm = async () => {
     if (phoneConfirm && phone && mobileAuth.length === 6) {
-      axios
-        .post(
-          "api/v1/users",
-          {
-            login_id: emailState,
-            password: passwordState,
-            phone: phoneState,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          nextStep();
-        })
-        .catch((err) => {});
+      try {
+        await signupAPI({ emailState, passwordState, phoneState });
+        nextStep();
+      } catch {}
     }
   };
   return (
