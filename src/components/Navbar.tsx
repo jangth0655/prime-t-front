@@ -41,7 +41,7 @@ export default function Navbar() {
     <nav>
       <div className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
         <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 border-b-[1px] border-b-slate-S600">
-          <Link href={routes.serviceIntro}>
+          <Link href={routes.serviceCategory}>
             <LogoWhite />
           </Link>
 

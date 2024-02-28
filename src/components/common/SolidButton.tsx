@@ -7,7 +7,7 @@ type Props = {
   isPrimaryColor?: boolean;
   primaryColor?: string;
   isColorSlate?: boolean;
-  size: "XL" | "L" | "M" | "S";
+  size: "XL" | "L" | "M" | "S" | "F";
   text: string;
   width?: string;
   height?: string;
@@ -34,6 +34,7 @@ export default function SolidButton({
     L: "p-4",
     M: "py-2 px-4",
     S: "py-1 px-4",
+    F: "",
   };
 
   const isDisabled = props.disabled;

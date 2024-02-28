@@ -15,6 +15,9 @@ type Props = {
   selectedColor?: string;
   selectorBg?: string;
   activeBorderColor?: string;
+  border?: string;
+  width?: string;
+  height?: string;
 };
 
 export default function InputSelector({
@@ -24,6 +27,9 @@ export default function InputSelector({
   selectedColor,
   selectorBg,
   activeBorderColor,
+  border,
+  width,
+  height,
 }: Props) {
   const [isActive, setIsActive] = useState(false);
 
@@ -45,11 +51,11 @@ export default function InputSelector({
         onClick={onToggleActive}
         style={{
           backgroundColor: selectedColor,
-          borderColor: activeBorderColor || "#5770F2",
+          border: border,
         }}
         className={cls(
-          isActive ? "border-b-[1px]" : "",
-          "w-[10rem] p-2 flex items-center justify-between cursor-pointer"
+          width ? width : "w-[10rem]",
+          "p-2 h-10 flex items-center justify-between cursor-pointer"
         )}
       >
         <span className="text-body leading-body font-regular text-slate-S200">
@@ -80,7 +86,11 @@ export default function InputSelector({
             transition={{
               ease: "easeInOut",
             }}
-            className="absolute w-[10rem] z-20"
+            style={{ borderColor: "#5770F2" }}
+            className={cls(
+              width ? width : "w-[10rem]",
+              "absolute w-[10rem] h-full z-20 border-t-[1px]"
+            )}
           >
             {list.map((item) => (
               <li
@@ -90,7 +100,7 @@ export default function InputSelector({
                     item.key === selectedItem.key ? selectedColor : selectorBg,
                 }}
                 key={item.key}
-                className="h-10 pl-2 flex items-center cursor-pointer"
+                className=" pl-2 flex items-center cursor-pointer"
               >
                 <span className="text-body leading-body font-regular text-slate-S300">
                   {item.name}

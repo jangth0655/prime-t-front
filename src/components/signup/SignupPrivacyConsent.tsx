@@ -1,3 +1,4 @@
+import { useSignupPrivacyConsentStore } from "@/store/useSignupStore";
 import SolidButton from "../common/SolidButton";
 
 type Props = {
@@ -5,6 +6,11 @@ type Props = {
 };
 
 export default function SignupPrivacyConsent({ nextStep }: Props) {
+  const { setPrivacyConsent } = useSignupPrivacyConsentStore();
+  const next = () => {
+    setPrivacyConsent(true);
+    nextStep();
+  };
   return (
     <div className="pt-4 h-full relative">
       <div className="w-full">
@@ -25,7 +31,7 @@ export default function SignupPrivacyConsent({ nextStep }: Props) {
           isPrimaryColor
           primaryColor="#2d47db"
           type="button"
-          onClick={nextStep}
+          onClick={next}
         />
       </div>
     </div>

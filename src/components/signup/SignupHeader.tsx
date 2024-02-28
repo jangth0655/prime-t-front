@@ -1,6 +1,6 @@
 type Props = {
   step: number;
-  signupHeaderTitle: string;
+  signupHeaderTitle: string | null;
 };
 export default function SignupHeader({ step, signupHeaderTitle }: Props) {
   return (
@@ -9,7 +9,7 @@ export default function SignupHeader({ step, signupHeaderTitle }: Props) {
         {signupHeaderTitle}
       </div>
       <div className="text-primary-P100 text-body font-regular leading-body">
-        {step}/3
+        {step < 4 ? `${step}/3` : null}
       </div>
     </div>
   );

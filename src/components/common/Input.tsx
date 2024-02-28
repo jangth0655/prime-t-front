@@ -4,16 +4,11 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 type Props = {
   register?: UseFormRegisterReturn;
-  inputTitle?: string;
-  dataType?: string;
-  maxLength?: number;
-  patternValue?: RegExp;
-  patternMessage?: string;
-  inputType?: string;
+  label?: string;
+  labelStyle?: string;
   padding?: string;
-  errors?: Record<string, { message: string }> | undefined;
+  margin?: string;
   textStyle?: string;
-  htmlFor?: string;
   required?: boolean;
   inputPaddingRight?: number | string;
   unit?: "LTC" | "%";
@@ -24,16 +19,11 @@ type Props = {
 
 export default function Input({
   register,
-  inputTitle,
+  label,
   inputPaddingRight,
-  dataType,
-  patternValue,
-  patternMessage,
-  maxLength,
-  inputType,
   padding,
-  htmlFor,
-  errors,
+  margin,
+  labelStyle,
   textStyle,
   required,
   height,
@@ -48,15 +38,20 @@ export default function Input({
       style={{
         width: width || "100%",
         height,
+        margin: margin,
       }}
     >
-      {inputTitle && (
-        <label
-          htmlFor={htmlFor}
-          className={textStyle || "text-slate-S200 mb-2"}
-        >
-          {inputTitle}
-        </label>
+      {label && (
+        <div className={labelStyle}>
+          <label
+            className={
+              textStyle ||
+              "text-slate-S300 text-body-s leading-body-s font-regular"
+            }
+          >
+            {label}
+          </label>
+        </div>
       )}
 
       <div

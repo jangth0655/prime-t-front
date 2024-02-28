@@ -12,14 +12,22 @@ export default function Home() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      router.push("/login");
-    }, 5000);
+      if (localStorage.getItem("access_token")) {
+        router.push("/service-category");
+      } else {
+        router.push("/login");
+      }
+    }, 2500);
 
     return () => clearTimeout(timeoutId);
   }, [router]);
 
   const onPage = () => {
-    router.push("/login");
+    if (localStorage.getItem("access_token")) {
+      router.push("/service-category");
+    } else {
+      router.push("/login");
+    }
   };
 
   return (
