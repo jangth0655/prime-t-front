@@ -6,7 +6,7 @@ import {
   setStorage,
 } from "@/utils/sessionStorageManage";
 import { ACCESS_TOKEN } from "@/store/useTokenStore";
-import { refreshToken } from "./auth/auth";
+import { refreshTokenAPI } from "./auth/auth";
 
 type CustomAxiosRequestConfig = {
   _retry?: boolean;
@@ -62,7 +62,7 @@ api.interceptors.response.use(
       removeStorage(ACCESS_TOKEN);
 
       try {
-        const { data: token } = await refreshToken(beforeAccessToken);
+        const { data: token } = await refreshTokenAPI(beforeAccessToken);
         if (!token) {
           throw new HttpError(401, "재 로그인이 필요합니다.");
         }

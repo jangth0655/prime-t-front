@@ -93,7 +93,7 @@ type RefreshToken = {
   data: string;
 };
 
-export const refreshToken = async (token: string) => {
+export const refreshTokenAPI = async (token: string) => {
   try {
     const response = await (
       await axios.get<Promise<RefreshToken>>("/api/refresh", {
