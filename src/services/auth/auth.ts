@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import HttpError from "../httpError";
 type LoginResponse = {
   access_token: string;
 };
@@ -84,5 +85,30 @@ export const signupAPI = async ({
     return true;
   } catch (error) {
     throw error;
+  }
+};
+
+type RefreshToken = {
+  isSuccess: boolean;
+  data: string;
+};
+
+export const refreshToken = async (token: string) => {
+  try {
+    const response = await (
+      await axios.get<Promise<RefreshToken>>("/api/refresh", {
+        headers: {
+          Authorization: token,
+        },
+      })
+    ).data;
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const { response } = error;
+      throw new HttpError(response?.status, response?.statusText).errorMessage;
+    }
+
+    throw new Error("네트워크 통신 에러 발생");
   }
 };
