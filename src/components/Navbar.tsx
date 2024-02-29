@@ -27,7 +27,7 @@ export default function Navbar() {
   const pathName = usePathname();
   const [isActive, setIsActive] = useState(false);
 
-  const getUserInfo = async () => {
+  /*   const getUserInfo = async () => {
     const response = await (await api.get("/users/me")).data;
     return response;
   };
@@ -35,7 +35,7 @@ export default function Navbar() {
   useEffect(() => {
     getUserInfo().then((res) => console.log("user info ", res));
   }, []);
-
+ */
   const openNavModal = useCallback(() => {
     setIsActive(true);
     document.body.style.overflow = "hidden";
