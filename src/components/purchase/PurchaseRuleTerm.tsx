@@ -1,4 +1,4 @@
-import CheckBox from "../common/CheckBox";
+import CheckBox from "../shared/CheckBox";
 
 type Props = {
   checked: boolean;

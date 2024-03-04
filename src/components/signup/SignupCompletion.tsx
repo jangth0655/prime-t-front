@@ -1,5 +1,5 @@
-import BorderButton from "../common/BorderButton";
-import SolidButton from "../common/SolidButton";
+import BorderButton from "../shared/BorderButton";
+import SolidButton from "../shared/SolidButton";
 import { useRouter } from "next/navigation";
 
 type Props = {

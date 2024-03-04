@@ -1,15 +1,15 @@
 "use client";
 
 import PageHeader from "../PageHeader";
-import BottomToggleInfo from "../common/BottomToggleInfo";
-import Divider from "../common/Divider";
+import BottomToggleInfo from "../shared/BottomToggleInfo";
+import Divider from "../shared/Divider";
 import PurchaseInfo from "./PurchaseInfo";
 
 import DigiterraItem from "../digiterra/DigiterraItem";
 import { ChangeEvent, useState } from "react";
 import PurchasePreTerm from "./PurchasePreTerm";
 import PurchaseRuleTerm from "./PurchaseRuleTerm";
-import SolidButton from "../common/SolidButton";
+import SolidButton from "../shared/SolidButton";
 
 const ASSET_QUANTITY = 9000000.0;
 const MAX_QUANTITY = 9000000.0;

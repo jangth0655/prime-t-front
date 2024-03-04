@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 import DetailTitle from "../feed/detail/DetailTitle";
 import FeedPeriodWithRange from "../feed/FeedPeriodWithRange";
-import SolidButton from "../common/SolidButton";
+import SolidButton from "../shared/SolidButton";
 import DetailProductIntro from "../feed/detail/DetailProductIntro";
 import DetailProductNotice from "../feed/detail/DetailProductNotice";
 import FeedLabel from "../feed/FeedLabel";
@@ -17,7 +17,7 @@ import FeedIssueAmount from "../feed/FeedIssueAmount";
 import { formatDateYYYMMDD } from "@/utils/formatDate";
 import { formatCurrency } from "@/utils/formatNumber";
 import TempImage from "../../../public/assets/digiterra/temp_digit_detail.png";
-import TabCategory, { CategoryType } from "../common/TabCategory";
+import TabCategory, { CategoryType } from "../shared/TabCategory";
 import StarIcon from "@/icons/StarIcon";
 
 type Props = {

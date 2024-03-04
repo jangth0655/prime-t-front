@@ -1,5 +1,5 @@
 import { useSignupPrivacyConsentStore } from "@/store/useSignupStore";
-import SolidButton from "../common/SolidButton";
+import SolidButton from "../shared/SolidButton";
 
 type Props = {
   nextStep: () => void;

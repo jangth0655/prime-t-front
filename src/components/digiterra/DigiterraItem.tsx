@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import FeedTitle from "../feed/FeedTitle";
 import FeedRate from "../feed/FeedRate";
-import Divider from "../common/Divider";
+import Divider from "../shared/Divider";
 import FeedIssueUnitInfo from "../feed/FeedIssueUnitInfo";
 import FeedIssueAmount from "../feed/FeedIssueAmount";
 import FeedLabel from "../feed/FeedLabel";

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import SolidButton from "../common/SolidButton";
-import Input from "../common/Input";
-import InputSelector, { SelectItemType } from "../common/InputSelector";
+import SolidButton from "../shared/SolidButton";
+import Input from "../shared/Input";
+import InputSelector, { SelectItemType } from "../shared/InputSelector";
 import { useCallback, useEffect, useState } from "react";
 import {
   useSignupEmail,

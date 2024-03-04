@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import Input from "../common/Input";
-import SolidButton from "../common/SolidButton";
+import Input from "../shared/Input";
+import SolidButton from "../shared/SolidButton";
 import { cls } from "@/utils/cls";
 import { useState } from "react";
 import { useSignupEmail, useSignupPassword } from "@/store/useSignupStore";

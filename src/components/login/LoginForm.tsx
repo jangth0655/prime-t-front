@@ -1,10 +1,10 @@
 "use client";
 
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import SolidButton from "../common/SolidButton";
-import Input from "../common/Input";
+import SolidButton from "../shared/SolidButton";
+import Input from "../shared/Input";
 import { useRouter } from "next/navigation";
-import BorderButton from "../common/BorderButton";
+import BorderButton from "../shared/BorderButton";
 import { useRef } from "react";
 import { cls } from "@/utils/cls";
 import { setStorage } from "@/utils/sessionStorageManage";

@@ -1,6 +1,6 @@
 "use client";
 
-import SolidButton from "../common/SolidButton";
+import SolidButton from "../shared/SolidButton";
 import FAQItem from "./FAQItem";
 
 export default function FAQ() {
