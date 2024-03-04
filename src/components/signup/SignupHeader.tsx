@@ -4,7 +4,7 @@ type Props = {
 };
 export default function SignupHeader({ step, signupHeaderTitle }: Props) {
   return (
-    <div className="flex justify-between items-center pt-4">
+    <div className="flex justify-between items-center pt-4 lg:pt-10">
       <div className="text-h4 font-bold leading-h4 text-slate-S200">
         {signupHeaderTitle}
       </div>

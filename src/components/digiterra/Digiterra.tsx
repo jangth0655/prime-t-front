@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 
 import PageHeader from "../PageHeader";
 import DigiterraList from "./DigiterraList";
-import InputSelector, { SelectItemType } from "../common/InputSelector";
+import InputSelector, { SelectItemType } from "../shared/InputSelector";
 
 export default function Digiterra() {
   const [categoryStatus, setCategoryStatus] = useState<StatusCategory>({

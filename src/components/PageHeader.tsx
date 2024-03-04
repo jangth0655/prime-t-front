@@ -12,6 +12,7 @@ type Props = {
   top?: string;
   isDark?: boolean;
   step?: number;
+  style?: string;
 };
 
 export default function PageHeader({
@@ -20,6 +21,7 @@ export default function PageHeader({
   top,
   isDark,
   step,
+  style,
 }: Props) {
   const router = useRouter();
 
@@ -46,7 +48,7 @@ export default function PageHeader({
       <button
         onClick={onBackPage}
         className={
-          step === 4
+          step
             ? "hidden"
             : "absolute w-10 h-10 left-1 flex justify-center items-center"
         }

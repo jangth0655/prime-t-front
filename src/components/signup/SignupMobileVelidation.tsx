@@ -1,16 +1,15 @@
 import { useForm } from "react-hook-form";
-import SolidButton from "../common/SolidButton";
-import Input from "../common/Input";
-import InputSelector, { SelectItemType } from "../common/InputSelector";
-import { useCallback, useEffect, useState } from "react";
+import SolidButton from "../shared/SolidButton";
+import Input from "../shared/Input";
+import InputSelector, { SelectItemType } from "../shared/InputSelector";
+import { useCallback, useState } from "react";
 import {
   useSignupEmail,
   useSignupPassword,
   useSignupPhoneState,
 } from "@/store/useSignupStore";
 import { cls } from "@/utils/cls";
-import axios from "axios";
-import { signupAPI, signupPhoneAPI } from "@/services/auth/auth";
+import { signupAPI, signupPhoneAPI } from "@/services/auth/signup";
 
 type Props = {
   nextStep: () => void;
@@ -136,7 +135,6 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
                     ? "전송"
                     : "중복확인"
                 }
-                size="F"
                 isColorSlate
                 type="button"
                 width="5rem"
@@ -175,7 +173,7 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
           />
         </div>
 
-        <div className="absolute bottom-6 w-full">
+        <div className="absolute lg:static bottom-6 w-full lg:w-[17rem] lg:mx-auto lg:mt-10">
           {/*휴대폰 인증이 완료 되면 다음버튼으로 진행 */}
           <SolidButton
             text="가입하기"

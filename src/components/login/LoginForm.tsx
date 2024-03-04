@@ -1,10 +1,10 @@
 "use client";
 
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import SolidButton from "../common/SolidButton";
-import Input from "../common/Input";
+import SolidButton from "../shared/SolidButton";
+import Input from "../shared/Input";
 import { useRouter } from "next/navigation";
-import BorderButton from "../common/BorderButton";
+import BorderButton from "../shared/BorderButton";
 import { useRef } from "react";
 import { cls } from "@/utils/cls";
 import { setStorage } from "@/utils/sessionStorageManage";
@@ -53,7 +53,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mx-4 h-full relative">
+    <div className="mx-4 lg:mx-auto h-full relative lg:w-[25rem]">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           register={register("username")}
@@ -75,7 +75,7 @@ export default function LoginForm() {
         >
           이메일 또는 비밀번호를 잘못 입력하였습니다. 다시 확인해주세요.
         </div>
-        <div className="w-full absolute bottom-10">
+        <div className="w-full absolute lg:static lg:mt-20 bottom-10">
           <div className="flex justify-between">
             <BorderButton text="ID찾기" size="S" width="6.5rem" height="2rem" />
             <BorderButton text="PW찾기" size="S" width="6.5rem" height="2rem" />

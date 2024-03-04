@@ -45,17 +45,15 @@ export default function Navbar() {
     document.body.style.overflow = "auto";
   }, []);
 
-  return pathName === "/" ||
-    pathName === "/login" ||
-    pathName === "/signup" ? null : (
+  return pathName === "/" || pathName === "/login" ? null : (
     <nav>
       <div className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
-        <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 border-b-[1px] border-b-slate-S600">
+        <div className="h-[3.75rem] lg:w-full flex justify-between items-center pl-4 lg:px-[6.5rem] bg-slate-S900 border-b-[1px] border-b-slate-S600">
           <Link href={routes.serviceCategory}>
             <LogoWhite />
           </Link>
 
-          <button type="button" className="pr-1" onClick={openNavModal}>
+          <button type="button" className="pr-1 lg:pr-0" onClick={openNavModal}>
             <HamburgerMenuIcon />
           </button>
         </div>

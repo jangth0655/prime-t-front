@@ -2,9 +2,9 @@
 
 import { ChangeEvent } from "react";
 
-import Divider from "../common/Divider";
-import Input from "../common/Input";
-import SolidButton from "../common/SolidButton";
+import Divider from "../shared/Divider";
+import Input from "../shared/Input";
+import SolidButton from "../shared/SolidButton";
 import FeedInputRange from "../feed/FeedInputRange";
 import FeedIssueAmount from "../feed/FeedIssueAmount";
 import FeedLabel from "../feed/FeedLabel";

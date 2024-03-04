@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import SolidButton from "../common/SolidButton";
+import SolidButton from "../shared/SolidButton";
 import { routes } from "@/routes";
 
 export default function Intro() {

@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import Input from "../common/Input";
-import SolidButton from "../common/SolidButton";
+import Input from "../shared/Input";
+import SolidButton from "../shared/SolidButton";
 import { cls } from "@/utils/cls";
 import { useState } from "react";
 import { useSignupEmail, useSignupPassword } from "@/store/useSignupStore";
-import { signupEmailAPI } from "@/services/auth/auth";
+import { signupEmailAPI } from "@/services/auth/signup";
 
 type Props = {
   nextStep: () => void;
@@ -39,8 +39,8 @@ export default function SignupAccountSettings({ nextStep }: Props) {
     } else {
       try {
         await signupEmailAPI(email);
-        setEmailConfirm(true);
-        setEmailState(email);
+        await setEmailConfirm(true);
+        await setEmailState(email);
       } catch (error) {
         setEmailNotAvailable(true);
       }
@@ -94,8 +94,8 @@ export default function SignupAccountSettings({ nextStep }: Props) {
                     ? "전송"
                     : "중복확인"
                 }
-                size="F"
                 isColorSlate
+                size="L"
                 type="button"
                 width="5rem"
                 height="2.5rem"
@@ -209,7 +209,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               password === passwordConfirm
                 ? "text-system-S600"
                 : "text-system-S200 ",
-              "mt-2 text-label leading-subtitle"
+              "mt-2 text-label leading-subtitle lg:min-h-4"
             )}
           >
             {!passwordConfirm
@@ -220,7 +220,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
           </div>
         </div>
 
-        <div className="absolute bottom-6 w-full">
+        <div className="absolute lg:static bottom-6 w-full lg:w-[17rem] lg:mt-4 lg:mx-auto">
           <SolidButton
             text="다음"
             size="XL"

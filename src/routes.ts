@@ -7,7 +7,8 @@ export const routes = {
   myWallet: "/myWallet",
   porkHub: "/porkHub",
   serviceCategory: "/service-category",
-  serviceIntro: "/serviceIntro",
+  serviceIntro: "/service-intro",
+  customerService: "/customer-service",
   login: "/login",
   signup: "/signup",
 };

@@ -1,5 +1,5 @@
-import BorderButton from "../common/BorderButton";
-import SolidButton from "../common/SolidButton";
+import BorderButton from "../shared/BorderButton";
+import SolidButton from "../shared/SolidButton";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -23,15 +23,14 @@ export default function SignupCompletion({ nextStep }: Props) {
         <BorderButton
           text={"메인 화면"}
           size={"L"}
-          width="9.75rem"
+          width={window.innerWidth >= 1366 ? "17rem" : "9.725rem"}
           height="3.5rem"
           type="button"
           onClick={onRouterPushMain}
         />
         <SolidButton
           text="로그인"
-          size="F"
-          width="9.75rem"
+          width={window.innerWidth >= 1366 ? "17rem" : "9.725rem"}
           height="3.5rem"
           primaryColor="#2d47db"
           isColorSlate
