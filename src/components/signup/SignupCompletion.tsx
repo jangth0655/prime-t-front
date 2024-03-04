@@ -23,14 +23,15 @@ export default function SignupCompletion({ nextStep }: Props) {
         <BorderButton
           text={"메인 화면"}
           size={"L"}
-          width={window.innerWidth >= 1366 ? "17rem" : "9.725rem"}
+          width="9.75rem"
           height="3.5rem"
           type="button"
           onClick={onRouterPushMain}
         />
         <SolidButton
           text="로그인"
-          width={window.innerWidth >= 1366 ? "17rem" : "9.725rem"}
+          size="F"
+          width="9.75rem"
           height="3.5rem"
           primaryColor="#2d47db"
           isColorSlate

@@ -32,7 +32,7 @@ export default function Signup() {
     },
   ];
 
-  const [step, setStep] = useState<number>(3);
+  const [step, setStep] = useState<number>(1);
 
   const nextStep = () => {
     setStep((prevStep) => prevStep + 1);
@@ -41,9 +41,9 @@ export default function Signup() {
   const { component: CurrentStage, title: currentStageTitle } = steps[step - 1];
 
   return (
-    <div className="bg-slate-S900 h-screen lg:overflow-auto overflow-hidden">
-      <PageHeader step={step} title="회원가입" isDark={true} />
-      <div className="mx-4 lg:mx-auto pt-[8.25rem] lg:pt-[9.75rem] pb-10 h-full lg:w-[35rem]">
+    <div className="bg-slate-S900 h-screen overflow-hidden">
+      <PageHeader step={step} title="회원가입" isDark={true} top="0" />
+      <div className="mx-4 pt-14 pb-10 h-full">
         <SignupHeader step={step} signupHeaderTitle={currentStageTitle} />
         <CurrentStage nextStep={nextStep} />
       </div>

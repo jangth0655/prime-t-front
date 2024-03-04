@@ -17,7 +17,7 @@ export type ProductAllArg = {
   sort?: "id" | "-id";
 };
 
-export const getProductAll = async ({
+export const getProductAllAPI = async ({
   limit = 10,
   sort = "id",
   offset = 0,

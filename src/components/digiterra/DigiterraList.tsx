@@ -2,13 +2,13 @@
 
 import React, { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useInfiniteScroll } from "../hooks/useScrollPosition";
 
 import DigiterraItem from "./DigiterraItem";
 
 import { StatusCategory } from "./Digiterra";
 import { QUERY_KEY } from "@/queryKey";
-import { getProductAll } from "@/services/products";
+import { getProductAllAPI } from "@/services/products";
+import { useInfiniteScroll } from "@/hooks/useScrollPosition";
 
 type Props = {
   status: StatusCategory;
@@ -27,7 +27,7 @@ export default function DigiterraList({ status }: Props) {
   } = useInfiniteQuery({
     queryKey: [QUERY_KEY.PRODUCT],
     queryFn: ({ pageParam }) => {
-      return getProductAll({
+      return getProductAllAPI({
         prd_type: "TYPE_A",
         offset: pageParam,
         limit: LIMITED_PAGE,
