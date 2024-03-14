@@ -2,21 +2,16 @@
 
 import React, { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteScroll } from "@/hooks/useScrollPosition";
 
 import DigiterraItem from "./DigiterraItem";
 
-import { StatusCategory } from "./Digiterra";
 import { QUERY_KEY } from "@/queryKey";
 import { getProductAllAPI } from "@/services/products";
-import { useInfiniteScroll } from "@/hooks/useScrollPosition";
-
-type Props = {
-  status: StatusCategory;
-};
 
 const LIMITED_PAGE = 10;
 
-export default function DigiterraList({ status }: Props) {
+export default function DigiterraList() {
   const { isScrolled, markerRef, observe } = useInfiniteScroll();
   const {
     data: digiterraList,

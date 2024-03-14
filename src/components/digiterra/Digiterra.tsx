@@ -1,29 +1,23 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import useCategory from "@/hooks/useCategory";
 
 import PageHeader from "../PageHeader";
 import DigiterraList from "./DigiterraList";
-import InputSelector, { SelectItemType } from "../shared/InputSelector";
+import InputSelector from "../shared/InputSelector";
 
 export default function Digiterra() {
-  const [categoryStatus, setCategoryStatus] = useState<StatusCategory>({
-    name: "전체",
-    key: "all",
-  });
+  const { category: statusFilter, onStatusCategory: onStatusFilter } =
+    useCategory({
+      name: "전체",
+      key: "all",
+    });
 
-  const [sortedStatus, setSortedItem] = useState<SortCategory>({
-    name: "추천 순",
-    key: "recommended",
-  });
-
-  const onStatusCategory = useCallback((status: SelectItemType) => {
-    setCategoryStatus(status as StatusCategory);
-  }, []);
-
-  const onSortedCategory = useCallback((status: SelectItemType) => {
-    setSortedItem(status as SortCategory);
-  }, []);
+  const { category: sortedCategory, onStatusCategory: onSortedCategory } =
+    useCategory({
+      name: "추천 순",
+      key: "recommended",
+    });
 
   return (
     <div>
@@ -31,21 +25,21 @@ export default function Digiterra() {
       <div className="px-4 py-2 h-14 w-full mt-[7.25rem] flex items-center justify-center space-x-2 border-b-[1px] border-b-slate-S200">
         <InputSelector
           list={statusList}
-          onSelected={onStatusCategory}
-          selectedItem={categoryStatus}
+          onSelected={onStatusFilter}
+          selectedItem={statusFilter}
           selectorBg="#2C3249"
           selectedColor="#12162A"
         />
         <InputSelector
           list={sortList}
           onSelected={onSortedCategory}
-          selectedItem={sortedStatus}
+          selectedItem={sortedCategory}
           selectorBg="#2C3249"
           selectedColor="#12162A"
         />
       </div>
 
-      <DigiterraList status={categoryStatus} />
+      <DigiterraList />
     </div>
   );
 }
