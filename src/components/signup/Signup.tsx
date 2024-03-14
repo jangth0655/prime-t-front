@@ -4,7 +4,7 @@ import PageHeader from "../PageHeader";
 import SignupPrivacyConsent from "./SignupPrivacyConsent";
 import SignupHeader from "./SignupHeader";
 import SignupAccountSettings from "./SignupAccountSettings";
-import SignupMobileVelidation from "./SignupMobileVelidation";
+import SignupMobileValidation from "./SignupMobileValidation";
 import SignupCompletion from "./SignupCompletion";
 
 type Step = {
@@ -23,7 +23,7 @@ export default function Signup() {
       title: "계정 설정",
     },
     {
-      component: SignupMobileVelidation,
+      component: SignupMobileValidation,
       title: "휴대폰 인증",
     },
     {
