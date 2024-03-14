@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import Input from "../shared/Input";
 import SolidButton from "../shared/SolidButton";
 import { cls } from "@/utils/cls";
-import { useState } from "react";
-import { useSignupEmail, useSignupPassword } from "@/store/useSignupStore";
-import { signupEmailAPI } from "@/services/auth/auth";
+import { useSignupEmailPasswordCheck } from "@/hooks/useSignupEmailPasswordCheck";
+import { useMutation } from "@tanstack/react-query";
+import { signupVerifyConfirmAPI } from "@/services/auth/signup";
 
 type Props = {
   nextStep: () => void;
@@ -16,58 +16,56 @@ type FormValues = {
   auth: string;
   number: number;
 };
+export type VerifyValues = {
+  verifyType: string;
+  state: string;
+  code: string;
+};
 export default function SignupAccountSettings({ nextStep }: Props) {
-  const { setEmailState } = useSignupEmail();
-  const { setPasswordState } = useSignupPassword();
+  const {
+    setPassword,
+    emailConfirm,
+    emailTransmission,
+    emailNotAvailable,
+    onEmailChange,
+    onEmailDuplicationCheck,
+  } = useSignupEmailPasswordCheck();
   const {
     register,
     watch,
     formState: { errors },
   } = useForm<FormValues>({ mode: "onChange" });
+
   const password = watch("password");
   const passwordConfirm = watch("passwordConfirm");
   const auth = watch("auth");
   const email = watch("email");
-  const [emailConfirm, setEmailConfirm] = useState(false);
-  const [emailTransmission, setEmailTransmission] = useState(false);
-  const [emailNotAvailable, setEmailNotAvailable] = useState(false);
-  const onEmailDuplicationCheck = async () => {
-    if (errors.email || !email) return;
 
-    if (emailConfirm) {
-      setEmailTransmission(true);
-    } else {
-      try {
-        await signupEmailAPI(email);
-        setEmailConfirm(true);
-        setEmailState(email);
-      } catch (error) {
-        setEmailNotAvailable(true);
-      }
-    }
-  };
-  const onEmailChange = () => {
-    setEmailConfirm(false);
-    setEmailTransmission(false);
-    setEmailNotAvailable(false);
-  };
+  const { mutate, isError, isSuccess } = useMutation({
+    mutationFn: (data: VerifyValues) => signupVerifyConfirmAPI(data),
+    onSuccess: () => {},
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
   const onEmailAuthCheck = () => {
-    //이메일 인증번호 확인
+    mutate({ verifyType: "email", state: email, code: auth });
   };
-
   const onConfirm = () => {
     if (emailConfirm && password === passwordConfirm) {
-      setPasswordState(password);
+      setPassword(password);
       nextStep();
     }
   };
+
   return (
     <div className="pt-4 relative h-full">
       <div className="text-label text-slate-S400 font-regular leading-label">
         인증한 이메일은 아이디로 사용됩니다.
       </div>
 
-      <form>
+      <form onSubmit={onConfirm}>
         {/* 이메일 전송 */}
         <div>
           <div className="flex items-end">
@@ -99,7 +97,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
                 type="button"
                 width="5rem"
                 height="2.5rem"
-                onClick={onEmailDuplicationCheck}
+                onClick={() => onEmailDuplicationCheck(email, errors)}
               />
             </div>
           </div>
@@ -160,8 +158,13 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               />
             </div>
           </div>
-          <div className="invisible mt-2 text-system-S200 text-label leading-subtitle">
-            잘못된 인증번호입니다.
+          <div
+            className={cls(
+              isError ? "visible" : "invisible",
+              "mt-2 text-system-S200 text-label leading-subtitle"
+            )}
+          >
+            {isSuccess ? "인증확인이 되었습니다" : "잘못된 인증번호입니다."}
           </div>
         </div>
 
@@ -229,6 +232,7 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               !errors.email &&
               !!password &&
               !!passwordConfirm &&
+              !!isSuccess &&
               password === passwordConfirm
             }
             primaryColor={
@@ -236,19 +240,20 @@ export default function SignupAccountSettings({ nextStep }: Props) {
               !errors.password ||
               password ||
               passwordConfirm ||
+              isSuccess ||
               password === passwordConfirm
                 ? "#2d47db"
                 : ""
             }
-            type="button"
+            type="submit"
             disabled={
               !email ||
               !!errors.password ||
               !password ||
               !passwordConfirm ||
+              !isSuccess ||
               password !== passwordConfirm
             }
-            onClick={onConfirm}
           />
         </div>
       </form>

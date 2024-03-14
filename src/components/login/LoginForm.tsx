@@ -1,47 +1,52 @@
 "use client";
 
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import SolidButton from "../shared/SolidButton";
 import Input from "../shared/Input";
 import { useRouter } from "next/navigation";
 import BorderButton from "../shared/BorderButton";
-import { useRef } from "react";
 import { cls } from "@/utils/cls";
 import { setStorage } from "@/utils/sessionStorageManage";
 import { ACCESS_TOKEN } from "@/store/useTokenStore";
 import { loginAPI } from "@/services/auth/auth";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 type FormValues = {
-  password: string;
   username: string;
+  password: string;
 };
 
 export default function LoginForm() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
 
   const username = watch("username");
   const password = watch("password");
-  const verification = useRef(true);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  useEffect(() => {
+    if (window.sessionStorage.access_token) {
+      router.push("/service-category");
+    }
+  }, [router]);
+
+  const { mutate, isError } = useMutation({
+    mutationFn: (auth: FormValues) =>
+      loginAPI({ username: auth.username, password: auth.password }),
+    onSuccess: (res) => {
+      sessionStorage.setItem(ACCESS_TOKEN, res.access_token);
+      router.push("/service-category");
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (username === "" || password === "") {
       return;
     }
-    try {
-      const response = await loginAPI(data.username, data.password);
-      setStorage({ name: ACCESS_TOKEN, value: response.access_token });
-
-      router.push("/service-category");
-    } catch (error) {
-      //아래 코드는 확인 후 문제 없을 시 지울 것
-      verification.current = false;
-    }
+    mutate(data);
   };
 
   const onWithoutLogin = () => {
@@ -69,7 +74,7 @@ export default function LoginForm() {
         />
         <div
           className={cls(
-            verification.current ? "invisible" : "visible",
+            !isError ? "invisible" : "visible",
             "text-system-S200 text-label font-regular leading-caption mt-2"
           )}
         >

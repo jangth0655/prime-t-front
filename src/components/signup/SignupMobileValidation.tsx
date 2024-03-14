@@ -1,16 +1,12 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import SolidButton from "../shared/SolidButton";
 import Input from "../shared/Input";
-import InputSelector, { SelectItemType } from "../shared/InputSelector";
-import { useCallback, useEffect, useState } from "react";
-import {
-  useSignupEmail,
-  useSignupPassword,
-  useSignupPhoneState,
-} from "@/store/useSignupStore";
+import InputSelector from "../shared/InputSelector";
 import { cls } from "@/utils/cls";
-import axios from "axios";
-import { signupAPI, signupPhoneAPI } from "@/services/auth/auth";
+import { signupAPI, signupVerifyConfirmAPI } from "@/services/auth/signup";
+import { useSignupMobileCheck } from "@/hooks/useSignupMobileCheck";
+import { useMutation } from "@tanstack/react-query";
+import { VerifyValues } from "@/components/signup/SignupAccountSettings";
 
 type Props = {
   nextStep: () => void;
@@ -27,16 +23,24 @@ export type InternationalNumberCategory = {
   name: InternationalNumber;
   key: InternationalNumberKey;
 };
-export default function SignupMobileVelidation({ nextStep }: Props) {
-  const { emailState } = useSignupEmail();
-  const { passwordState } = useSignupPassword();
-  const { phoneState, setPhoneState } = useSignupPhoneState();
-  const [phoneConfirm, setPhoneConfirm] = useState(false);
-  const [phoneTransmission, setPhoneTransmission] = useState(false);
-
+export default function SignupMobileValidation({ nextStep }: Props) {
+  const {
+    emailState,
+    passwordState,
+    phoneState,
+    phoneConfirm,
+    phoneTransmission,
+    internationalNumberList,
+    internationalNumber,
+    phoneDuplication,
+    onInternationalNumberCategory,
+    onPhoneDuplicationCheck,
+    onPhoneChange,
+  } = useSignupMobileCheck();
   const {
     register,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormValue>({
     defaultValues: {
@@ -46,56 +50,32 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
   });
   const phone = watch("phone");
   const mobileAuth = watch("mobileAuth");
-  const internationalNumberList: InternationalNumberCategory[] = [
-    {
-      name: "+82",
-      key: "+82",
-    },
-    {
-      name: "+81",
-      key: "+81",
-    },
-  ];
 
-  const [internationalNumber, setInternationalNumber] =
-    useState<InternationalNumberCategory>({
-      name: "+82",
-      key: "+82",
-    });
-  const onInternationalNumberCategory = useCallback(
-    (status: SelectItemType) => {
-      setInternationalNumber(status as InternationalNumberCategory);
-    },
-    []
-  );
-  const onPhoneDuplicationCheck = async () => {
-    if (phone && !phoneConfirm) {
-      try {
-        await signupPhoneAPI({ phone, internationalNumber });
-        setPhoneConfirm(true);
-        setPhoneState(internationalNumber.key + phone);
-      } catch {
-        setPhoneConfirm(false);
-      }
-    } else if (phone) {
-      setPhoneTransmission(true);
-    }
-  };
-  const onPhoneChange = () => {
-    setPhoneConfirm(false);
-    setPhoneTransmission(false);
-  };
-  const onConfirm = async () => {
-    if (phoneConfirm && phone && mobileAuth.length === 6) {
+  const { mutate, isError, isSuccess } = useMutation({
+    mutationFn: (data: VerifyValues) => signupVerifyConfirmAPI(data),
+    onSuccess: async () => {
       try {
         await signupAPI({ emailState, passwordState, phoneState });
         nextStep();
-      } catch {}
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    onError: () => {},
+  });
+
+  const onConfirm: SubmitHandler<FormValue> = async (data) => {
+    if (phoneConfirm && phone && mobileAuth.length === 6) {
+      mutate({
+        verifyType: "phone",
+        state: internationalNumber.key + data.phone,
+        code: data.mobileAuth,
+      });
     }
   };
   return (
     <div className="pt-4 relative h-full">
-      <form>
+      <form onSubmit={handleSubmit(onConfirm)}>
         <div>
           <div>
             <label className="text-slate-S300 text-body-s leading-body-s font-regular">
@@ -141,19 +121,27 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
                 type="button"
                 width="5rem"
                 height="2.5rem"
-                onClick={onPhoneDuplicationCheck}
+                onClick={() =>
+                  onPhoneDuplicationCheck(phone, errors, internationalNumber)
+                }
               />
             </div>
           </div>
 
           <div
             className={cls(
-              phoneConfirm && phone ? "text-system-S600" : "text-slate-S400",
+              phoneConfirm && phone
+                ? "text-system-S600"
+                : !phoneDuplication
+                ? "text-system-S200"
+                : "text-slate-S400",
               "text-label leading-label font-regular mt-2"
             )}
           >
             {phoneConfirm && phone
               ? "사용 가능한 휴대폰 번호입니다."
+              : !phoneDuplication
+              ? "이미 가입한 휴대폰 번호입니다. "
               : "하이픈(-)없이 입력해주세요."}
           </div>
         </div>
@@ -185,8 +173,7 @@ export default function SignupMobileVelidation({ nextStep }: Props) {
             primaryColor={
               !mobileAuth || !phone || mobileAuth.length < 6 ? "" : "#2d47db"
             }
-            type="button"
-            onClick={onConfirm}
+            type="submit"
           />
         </div>
       </form>
