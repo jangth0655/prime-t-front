@@ -115,7 +115,7 @@ const navItems: NavItem[] = [
   },
   {
     pageName: "마이월렛",
-    key: "myWallet",
+    key: "my-wallet",
     urls: routes.myWallet,
   },
   {
@@ -136,8 +136,5 @@ export type NavItem = {
   key: NavKey;
 };
 
-type NavKey = "home" | "market" | "myWallet" | "cs" | "myPage";
+type NavKey = "home" | "market" | "my-wallet" | "cs" | "myPage";
 type NavPageName = "홈" | "마켓" | "마이월렛" | "고객센터" | "마이페이지";
-
-//abcdefg@gmail.com
-//Aabcdef1234@

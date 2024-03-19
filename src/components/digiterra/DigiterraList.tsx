@@ -4,8 +4,6 @@ import React, { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInfiniteScroll } from "@/hooks/useScrollPosition";
 
-import DigiterraItem from "./DigiterraItem";
-
 import { QUERY_KEY } from "@/queryKey";
 import { getProductAllAPI } from "@/services/products";
 
@@ -53,24 +51,5 @@ export default function DigiterraList() {
     }
   }, [isSuccess, observe]);
 
-  return (
-    <div>
-      <ul className="mt-4 space-y-4 px-4  flex-col flex justify-center items-center">
-        <div className="w-[20.5rem]">
-          <span className="text-label leading-label font-regular text-slate-S400">
-            999개
-          </span>
-        </div>
-        {digiterraList?.pages.map((page, index) =>
-          page.items.map((item) => (
-            <React.Fragment key={item.id}>
-              <DigiterraItem product={item} />
-            </React.Fragment>
-          ))
-        )}
-      </ul>
-
-      {digiterraList?.pages && <div ref={markerRef} />}
-    </div>
-  );
+  return <div>Digiterra List</div>;
 }

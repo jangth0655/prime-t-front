@@ -4,7 +4,7 @@ export const routes = {
   digiterra: "/digiterra",
   market: "/market",
   myPage: "/myPage",
-  myWallet: "/myWallet",
+  myWallet: "/my-wallet",
   porkHub: "/porkHub",
   serviceCategory: "/service-category",
   serviceIntro: "/service-intro",
