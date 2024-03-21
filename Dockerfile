@@ -18,6 +18,7 @@ WORKDIR /usr/src/app
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
 RUN yarn build
+RUN yarn storybook build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -35,7 +36,7 @@ COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/stat
 USER nextjs
 
 EXPOSE 3000
-
 ENV PORT 3000
-
 CMD ["node", "server.js"]
+
+RUN yarn storybook
