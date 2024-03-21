@@ -38,3 +38,4 @@ next-env.d.ts
 # 임시폴더
 
 testApi
+*storybook.log

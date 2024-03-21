@@ -3,7 +3,7 @@
 import { cls } from "@/utils/cls";
 import { ButtonHTMLAttributes } from "react";
 
-type Props = {
+export type Props = {
   isWhiteBg?: boolean;
   text: string;
   width?: string;
@@ -42,8 +42,8 @@ export default function BorderButton({
         isDisabled
           ? "text-slate-S500 bg-slate-S600 border-slate-S500"
           : isWhiteBg
-          ? "bg-slate-S100 border-slate-S500 text-slate-S500 hover:bg-slate-S200 hover:border-slate-S400"
-          : "text-slate-S300 border-slate-S400 bg-transparent hover:bg-white hover:bg-opacity-10",
+            ? "bg-slate-S100 border-slate-S500 text-slate-S500 hover:bg-slate-S200 hover:border-slate-S400"
+            : "text-slate-S300 border-slate-S400 bg-transparent hover:bg-white hover:bg-opacity-10",
         isWhiteBgDisabled
           ? "text-slate-S500 bg-slate-S400 border-slate-S400"
           : "",

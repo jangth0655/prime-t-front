@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 type Props = {
   onCategory: (item: CategoryType) => void;
   categoryList: CategoryType[];
-  category: CategoryType;
+  categoryKey: CategoryType["key"];
   paddingTop?: string;
   activeStatusColor: string;
   statusColor: string;
@@ -14,13 +14,12 @@ type Props = {
 };
 
 export default function TabCategory({
-  paddingTop,
   onCategory,
-  category,
   activeStatusColor,
   statusColor,
   isPorkHub,
   categoryList,
+  categoryKey,
 }: Props) {
   return (
     <ul
@@ -38,17 +37,16 @@ export default function TabCategory({
         >
           <span
             style={{
-              color:
-                category.key === item.key ? activeStatusColor : statusColor,
+              color: categoryKey === item.key ? activeStatusColor : statusColor,
             }}
             className={cls(
-              category.key === item.key ? "font-bold " : "font-regular",
+              categoryKey === item.key ? "font-bold " : "font-regular",
               "text-body leading-body"
             )}
           >
             {item.name}
           </span>
-          {category.key === item.key && (
+          {categoryKey === item.key && (
             <motion.div
               layoutId="category"
               className="absolute w-full h-[1px] bg-primary-P100 bottom-0"

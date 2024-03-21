@@ -6,7 +6,7 @@ import TopChevron from "../../icons/topChevron.svg";
 import { cls } from "@/utils/cls";
 import { useCallback, useState } from "react";
 
-type Props = {
+export type Props = {
   title: string;
   children: React.ReactNode;
   isPorkHub?: boolean;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const toggleVariants: Variants = {
-  initial: (contentHeight: number) => ({
+  initial: () => ({
     opacity: 0,
     height: 0,
     y: -100,
