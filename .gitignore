@@ -39,3 +39,15 @@ next-env.d.ts
 
 testApi
 *storybook.log
+
+.yarn/*
+.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.vscode
+
+/storybook-static
