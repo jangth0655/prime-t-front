@@ -42,6 +42,7 @@ testApi
 
 .yarn/*
 .yarn/cache
+.yarn/sdks
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -51,3 +52,4 @@ testApi
 .vscode
 
 /storybook-static
+.yarn/sdks
