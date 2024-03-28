@@ -1,0 +1,14 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - run: gh api /repos/reborn-soft/prime-t-server/dispatches -f event_type='deploy'
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
