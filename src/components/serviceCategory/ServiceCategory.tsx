@@ -59,7 +59,7 @@ export default function ServiceCategory() {
 
   return (
     <section className="bg-black h-[100vh] flex justify-center items-center ">
-      <ul className="w-[20.5rem] h-[24rem] relative flex justify-center items-center">
+      <ul className="w-[20.5rem] h-[24rem] relative flex justify-center items-center overflow-hidden">
         <button
           onClick={leftSlide}
           className="absolute left-0 w-10 h-10 flex justify-center items-center"

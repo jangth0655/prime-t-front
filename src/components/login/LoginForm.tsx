@@ -1,91 +1,54 @@
 "use client";
 
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import SolidButton from "../common/SolidButton";
-import Input from "../common/Input";
-import axios, { AxiosRequestConfig } from "axios";
+import { useForm, SubmitHandler } from "react-hook-form";
+import SolidButton from "../shared/SolidButton";
+import Input from "../shared/Input";
 import { useRouter } from "next/navigation";
-import BorderButton from "../common/BorderButton";
-import { useEffect, useRef, useState } from "react";
+import BorderButton from "../shared/BorderButton";
 import { cls } from "@/utils/cls";
-import { getStorage } from "@/utils/localStorageManage";
+import { setStorage } from "@/utils/sessionStorageManage";
+import { ACCESS_TOKEN } from "@/store/useTokenStore";
+import { loginAPI } from "@/services/auth/auth";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 type FormValues = {
-  password: string;
   username: string;
+  password: string;
 };
 
 export default function LoginForm() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
 
   const username = watch("username");
   const password = watch("password");
-  const [loginButtonDisabled, setLoginButtonDisabled] = useState(true);
-  const verification = useRef(true);
-  const isLogin = useRef(false);
 
   useEffect(() => {
-    if (
-      username !== undefined &&
-      username !== "" &&
-      password !== "" &&
-      password !== undefined
-    ) {
-      setLoginButtonDisabled(false);
-    } else {
-      setLoginButtonDisabled(true);
-    }
-  }, [username, password]);
-
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    try {
-      const response = await axios.post(
-        "/api/v1/login",
-        {
-          username: data.username,
-          password: data.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-
-      // console.log(response.data);
-      // console.log("로그인 성공");
-      getStorage(response.data.access_token);
-
-      isLogin.current = true;
-    } catch (error) {
-      //아래 코드는 확인 후 문제 없을 시 지울 것
-      console.error(error);
-      verification.current = false;
-    }
-
-    if (isLogin.current) {
+    if (window.sessionStorage.access_token) {
       router.push("/service-category");
     }
+  }, [router]);
+
+  const { mutate, isError } = useMutation({
+    mutationFn: (auth: FormValues) =>
+      loginAPI({ username: auth.username, password: auth.password }),
+    onSuccess: (res) => {
+      sessionStorage.setItem(ACCESS_TOKEN, res.access_token);
+      router.push("/service-category");
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    if (username === "" || password === "") {
+      return;
+    }
+    mutate(data);
   };
 
-  const onDisalbedEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (
-      username === undefined &&
-      username === "" &&
-      password === "" &&
-      password === undefined
-    ) {
-      if (e.key === "Enter") {
-        e.preventDefault();
-      }
-    }
-  };
   const onWithoutLogin = () => {
     router.push("/service-category");
   };
@@ -95,34 +58,29 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mx-4 h-full relative">
+    <div className="mx-4 lg:mx-auto h-full relative lg:w-[25rem]">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           register={register("username")}
-          inputTitle="ID (e-mail)"
-          dataType="username"
-          maxLength={80}
-          inputType="text"
-          onKeyDown={onDisalbedEnterKey}
+          label="ID (e-mail)"
+          labelStyle="mb-2 pt-10"
+          type="text"
         />
         <Input
           register={register("password")}
-          inputTitle="PW"
-          dataType="password"
-          maxLength={80}
-          inputType="password"
+          label="PW"
+          labelStyle="mb-2 pt-10"
           type="password"
-          onKeyDown={onDisalbedEnterKey}
         />
         <div
           className={cls(
-            verification.current ? "invisible" : "visible",
+            !isError ? "invisible" : "visible",
             "text-system-S200 text-label font-regular leading-caption mt-2"
           )}
         >
           이메일 또는 비밀번호를 잘못 입력하였습니다. 다시 확인해주세요.
         </div>
-        <div className="w-full absolute bottom-10">
+        <div className="w-full absolute lg:static lg:mt-20 bottom-10">
           <div className="flex justify-between">
             <BorderButton text="ID찾기" size="S" width="6.5rem" height="2rem" />
             <BorderButton text="PW찾기" size="S" width="6.5rem" height="2rem" />
@@ -137,11 +95,11 @@ export default function LoginForm() {
           </div>
           <div className="mt-4">
             <SolidButton
-              disabled={loginButtonDisabled}
+              disabled={!username || !password}
               text="로그인"
               size="XL"
-              isPrimaryColor={!loginButtonDisabled}
-              primaryColor={loginButtonDisabled ? "" : "#2d47db"}
+              isPrimaryColor={!!username || !!password}
+              primaryColor={!username || !password ? "" : "#2d47db"}
               type="submit"
               id="loginButton"
             />

@@ -21,7 +21,11 @@ export default function FAQItem({ item }: Props) {
   return (
     <li onClick={toggleDescription} className="">
       <div className="flex justify-between items-center w-full p-4 border-b-[1px] border-b-slate-S500 cursor-pointer">
-        <p className="text-body leading-body text-slate-S200 font-regular">
+        <p
+          className="text-b
+        
+        ody leading-body text-slate-S200 font-regular"
+        >
           {title}
         </p>
         <div>{isActive ? <MinusIcon /> : <PlusIcon />}</div>

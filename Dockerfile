@@ -2,24 +2,24 @@ FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /usr/src/app
+RUN apk update && apk add --no-cache libc6-compat vim bash
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock ./
-# RUN yarn --frozen-lockfile --production;
-# - 빌드과정에서 모든 의존성을 설치가 필요.
-RUN yarn --frozen-lockfile
-RUN rm -rf ./.next/cache
-
-# Rebuild the source code only when needed
-FROM base AS builder
+FROM deps AS builder
 WORKDIR /usr/src/app
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+RUN yarn set version berry
+RUN echo 'nodeLinker: pnp' >> .yarnrc.yml
+
 COPY . .
-RUN yarn build
 
-# Production image, copy all the files and run next
+# gloabl package install, build
+RUN yarn
+RUN yarn build
+RUN yarn build-storybook
+
+# local production package install
+RUN echo 'enableGlobalCache: false' >> .yarnrc.yml
+RUN yarn workspaces focus --production
+
 FROM base AS runner
 WORKDIR /usr/src/app
 
@@ -28,14 +28,23 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /usr/src/app/public ./public
+# next build file copy
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/static
 
+# yarn pnp file copy
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.yarn ./.yarn
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.pnp* ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/yarn.lock ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.yarnrc.yml ./
+
 USER nextjs
 
-EXPOSE 3000
+# storybook
+COPY --from=builder /usr/src/app/storybook-static ./public/storybook
 
+EXPOSE 3000
 ENV PORT 3000
 
-CMD ["node", "server.js"]
+CMD ["yarn", "node", "server.js"]

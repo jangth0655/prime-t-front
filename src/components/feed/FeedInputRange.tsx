@@ -1,5 +1,3 @@
-"use client";
-
 import { Range, getTrackBackground } from "react-range";
 
 const STEP = 1;

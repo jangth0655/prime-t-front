@@ -4,10 +4,11 @@ export const routes = {
   digiterra: "/digiterra",
   market: "/market",
   myPage: "/myPage",
-  myWallet: "/myWallet",
+  myWallet: "/my-wallet",
   porkHub: "/porkHub",
   serviceCategory: "/service-category",
-  serviceIntro: "/serviceIntro",
+  serviceIntro: "/service-intro",
+  customerService: "/customer-service",
   login: "/login",
   signup: "/signup",
 };

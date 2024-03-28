@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence, Variants } from "framer-motion";
@@ -9,6 +9,7 @@ import HamburgerMenuIcon from "../icons/hamburgerMenuIcon.svg";
 import CloseIcon from "@/icons/CloseIcon";
 import LogoWhite from "@/icons/LogoWhite";
 import { routes } from "@/routes";
+import { api } from "@/services/httpClient";
 
 const modalVariants: Variants = {
   initial: {
@@ -26,6 +27,15 @@ export default function Navbar() {
   const pathName = usePathname();
   const [isActive, setIsActive] = useState(false);
 
+  /*   const getUserInfo = async () => {
+    const response = await (await api.get("/users/me")).data;
+    return response;
+  };
+
+  useEffect(() => {
+    getUserInfo().then((res) => console.log("user info ", res));
+  }, []);
+ */
   const openNavModal = useCallback(() => {
     setIsActive(true);
     document.body.style.overflow = "hidden";
@@ -41,7 +51,7 @@ export default function Navbar() {
     <nav>
       <div className="fixed top-0 left-0 right-0 m-auto min-w-sm z-50">
         <div className="h-[3.75rem] flex justify-between items-center pl-4 bg-slate-S900 border-b-[1px] border-b-slate-S600">
-          <Link href={routes.serviceIntro}>
+          <Link href={routes.serviceCategory}>
             <LogoWhite />
           </Link>
 
@@ -105,7 +115,7 @@ const navItems: NavItem[] = [
   },
   {
     pageName: "마이월렛",
-    key: "myWallet",
+    key: "my-wallet",
     urls: routes.myWallet,
   },
   {
@@ -126,5 +136,5 @@ export type NavItem = {
   key: NavKey;
 };
 
-type NavKey = "home" | "market" | "myWallet" | "cs" | "myPage";
+type NavKey = "home" | "market" | "my-wallet" | "cs" | "myPage";
 type NavPageName = "홈" | "마켓" | "마이월렛" | "고객센터" | "마이페이지";

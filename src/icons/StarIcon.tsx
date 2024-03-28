@@ -2,7 +2,7 @@ type Props = {
   color?: string;
 };
 
-export default function StartIcon({ color }: Props) {
+export default function StarIcon({ color }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
