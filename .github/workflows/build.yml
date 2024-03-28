@@ -1,20 +1,17 @@
 on:
-  repository_dispatch:
-    types: [deploy]
-  workflow_dispatch:
+  push:
+    repository_dispatch:
+      types: [deploy]
+    workflow_dispatch:
 
-jobs:
-  deploy:
-    runs-on: self-hosted
+  jobs:
+    deploy:
+      runs-on: self-hosted
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
 
-      - name: Login to Docker Registry
-        run: |
-          echo "${{ secrets.REGISTRY_PASS }}" | docker login https://ai-rebornsoft.asuscomm.com:5000 -u ${{ secrets.REGISTRY_USER }} --password-stdin
-
-      - run: gh api /repos/reborn-soft/prime-t-server/dispatches -f event_type='deploy'
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
+        - run: gh api /repos/reborn-soft/prime-t-server/dispatches -f event_type='deploy'
+          env:
+            GH_TOKEN: ${{ secrets.PAT }}
