@@ -4,14 +4,14 @@ on:
       types: [deploy]
     workflow_dispatch:
 
-  jobs:
-    deploy:
-      runs-on: self-hosted
+jobs:
+  deploy:
+    runs-on: self-hosted
 
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - run: gh api /repos/reborn-soft/prime-t-server/dispatches -f event_type='deploy'
-          env:
-            GH_TOKEN: ${{ secrets.PAT }}
+      - run: gh api /repos/reborn-soft/prime-t-server/dispatches -f event_type='deploy'
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
